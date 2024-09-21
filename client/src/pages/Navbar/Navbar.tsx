@@ -3,6 +3,9 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './Navbar.css'
 
+import { Outlet, Link } from "react-router-dom";
+
+
 function BaseNavbar() {
   return (
     <>
@@ -10,7 +13,10 @@ function BaseNavbar() {
         <Container>
           <Navbar.Brand href="#home">Moti-Vibes</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">User Profile</Nav.Link>
+            <Nav.Link href="#userinfo">User Profile</Nav.Link>
+            <li> 
+              <Link to={'userinfo'}>User Profile</Link>
+            </li>  
             <Nav.Link href="#features">Find Unmotivated</Nav.Link>
             <Nav.Link href="#pricing">Chat</Nav.Link>
           </Nav>
