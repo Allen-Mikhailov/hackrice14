@@ -3,11 +3,16 @@ import https from "node:https";
 import fs from "node:fs";
 import cors from "cors";
 
+import { config } from "dotenv";
+if (process.env.NODE_ENV !== "production") config();
+
 const app = express();
 
 app.use(cors());
 
 app.use("/profile", require("./routers/profile").default);
+app.use("/todo", require("./routers/todo").default);
+app.use("/chats", require("./routers/chats").default);
 
 app.get("/", (req, res) => {
   res.send("test");
