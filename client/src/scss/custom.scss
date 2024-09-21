@@ -1,6 +1,9 @@
 h1 {
     font-size:70px;
     color:rgb(240, 240, 240);
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 body {
@@ -20,16 +23,4 @@ body {
     white-space:wrap;
     background-color:rgb(39, 39, 39);
     color:rgb(173, 216, 230);
-}
-
-.Table {
-    border-color:rgb(79, 79, 79);
-    border-style:solid;
-    background-color:rgb(22, 22, 22);
-    padding:10px;
-    margin:auto;
-    text-align: center;
-    width:50%;
-    color:rgb(206, 144, 229);
-    white-space:wrap;
 }
