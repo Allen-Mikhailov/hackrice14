@@ -1,3 +1,8 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 h1 {
     font-size:70px;
     color:rgb(240, 240, 240);
@@ -7,16 +12,9 @@ h1 {
 }
 
 body {
-    background-color:rgb(39, 39, 39);
-    color:rgb(173, 216, 230);
-}
-
-.Table {
-    border-color:rgb(79, 79, 79);
-    border-style:solid;
-    background-color:rgb(22, 22, 22);
-    padding:10px;
-    margin:auto;
+    background-color: rgb(39, 39, 39);
+    color: rgb(173, 216, 230);
+    min-height: 100vh;
     text-align: center;
     width:50%;
     color:rgb(206, 144, 229);
