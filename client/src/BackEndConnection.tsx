@@ -10,9 +10,7 @@ function BackEndConnection()
     const [userData, setUserData] = user_data_state.useState()
 
     async function update_user_profile(user: User) {
-        console.log("fetch attempt")
         const profile = await getProfile(user)
-        console.log("profile", profile)
         setUserData(profile)
         
     }
