@@ -10,6 +10,7 @@ app.get("/", (req, res) => {
 
 if (process.env.NODE_ENV === "production") {
   https.createServer({
+    key: fs.readFileSync("/root/motivibe.live.key"),
     cert: fs.readFileSync("/root/cert.txt"),
   }, app).listen(443, () => {
     console.log("listening");
