@@ -4,6 +4,16 @@ import './index.css'
 
 import Home from './pages/Home/Home.tsx'
 import Userinfo from './pages/Userinfo/Userinfo.tsx'
+import BaseNavbar from './pages/Navbar/Navbar.tsx'
+
+// Import our custom CSS
+import './scss/styles.scss'
+
+// Import all of Bootstrap's JS
+import * as bootstrap from 'bootstrap'
+
+
+import { app, auth } from './modules/firebase.ts'
 
 import {
   createBrowserRouter,
@@ -23,6 +33,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <BaseNavbar></BaseNavbar>
+    {auth.currentUser != null?auth.currentUser.displayName:"no user"}
     <RouterProvider router={router} />
   </StrictMode>,
 )
