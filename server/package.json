@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "npx tsx src/index.ts"
+    "dev": "npx tsx src/index.ts",
+    "prod": "NODE_ENV=production npx tsx src/index.ts"
   },
   "keywords": [],
   "author": "",
