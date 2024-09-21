@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 
 import Home from './pages/Home/Home.tsx'
+import Userinfo from './pages/Userinfo/Userinfo.tsx'
 
 import {
   createBrowserRouter,
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home/>,
+  },
+  {
+    path: "Userinfo",
+    element: <Userinfo/>
   },
 ]);
 
