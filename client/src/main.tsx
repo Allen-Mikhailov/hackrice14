@@ -5,7 +5,7 @@ import './index.css'
 import Home from './pages/Home/Home.tsx'
 import Userinfo from './pages/Userinfo/Userinfo.tsx'
 import BaseNavbar from './pages/Navbar/Navbar.tsx'
-
+import Login from './pages/Login/Login.tsx'
 // Import our custom CSS
 import './scss/styles.scss'
 
@@ -23,10 +23,16 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home/>,
+    children: [
+      {
+        path: "users",
+        element: <Userinfo />
+      },
+    ]
   },
   {
-    path: "#userinfo",
-    element: <Userinfo/>
+    path:"login",
+    element:<Login/>,
   },
 ]);
 
