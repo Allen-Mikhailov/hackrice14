@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { getAuth, signInWithCredential, GoogleAuthProvider } from "firebase/auth";
+import { signInWithCredential, GoogleAuthProvider } from "firebase/auth";
 import { database } from "../mongodb";
 import { ObjectId } from "mongodb";
+import { auth } from "../firebase";
 
-const auth = getAuth();
 const users = database.collection("users");
 
 export type User = {
