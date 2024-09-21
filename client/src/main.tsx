@@ -42,7 +42,7 @@ function SignInButton()
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BaseNavbar></BaseNavbar>
-    {auth.currentUser != null?auth.currentUser.displayName:<SignInButton/>}
+    {auth.currentUser != null ? auth.currentUser.displayName : <SignInButton/>}
     <RouterProvider router={router} />
   </StrictMode>,
 )
