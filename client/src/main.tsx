@@ -15,7 +15,6 @@ import './scss/styles.scss'
 
 // Import all of Bootstrap's JS
 
-
 import { auth, google_auth, signInWithPopup } from './modules/firebase.ts'
 
 import {
