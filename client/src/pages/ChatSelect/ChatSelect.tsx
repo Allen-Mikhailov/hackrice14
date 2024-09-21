@@ -3,7 +3,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 function Username()
 {
     return <div>
-        username goes here
+        User1
     </div>
 }
 
