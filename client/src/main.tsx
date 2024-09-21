@@ -7,7 +7,7 @@ import Home from './pages/Home/Home.tsx'
 import Userinfo from './pages/Userinfo/Userinfo.tsx'
 import BaseNavbar from './pages/Navbar/Navbar.tsx'
 
-import { user_state } from './modules/states.ts'
+import BackEndConnection from './BackEndConnection.tsx'
 
 import Login from './pages/Login/Login.tsx'
 // Import our custom CSS
@@ -45,23 +45,15 @@ const router = createBrowserRouter([
 
 function App()
 {
-  const [user, setUser] = user_state.useState();
-
-  useEffect(() => {
-    
-    auth.onAuthStateChanged(user => {
-      setUser(user);
-    })
-  }, [])
-
-  return <div>
-
-  </div>
+  return <>
+    <BackEndConnection/>
+    <BaseNavbar></BaseNavbar>
+    <RouterProvider router={router} />
+  </>
 }
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BaseNavbar></BaseNavbar>
-    <RouterProvider router={router} />
+    <App/>
   </StrictMode>,
 )

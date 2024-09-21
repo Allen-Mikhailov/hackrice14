@@ -2,24 +2,76 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './Navbar.css'
+import { useState, useEffect } from 'react';
+import { User } from 'firebase/auth';
 
-import { user_state } from '../../modules/states';
+import { Form, Row, Col, Button } from 'react-bootstrap';
 
-import { auth, google_auth, signInWithPopup } from '../../modules/firebase';
+import {  } from '../../modules/states';
 
-function SignInButton()
-{
-  async function onclick()
-  {
-    const result = await signInWithPopup(auth, google_auth)
-  }
-  return <div onClick={onclick}>Sign In</div>
-}
 import { Outlet, Link } from "react-router-dom";
+import { auth, google_auth, signInWithPopup, signOut } from '../../modules/firebase';
 
+async function SignIn(e: any)
+{
+  e.preventDefault()
+  const result = await signInWithPopup(auth, google_auth)
+}
+
+function SignOut(e: any)
+{
+  e.preventDefault()
+  signOut(auth)
+}
+
+function SignedIn()
+{
+  const [user, setUser] = useState<User|null>(null);
+
+  useEffect(() => {
+    
+    auth.onAuthStateChanged(user => {
+      setUser(user);
+    })
+  }, [])
+
+  return (user && <>
+  <Navbar.Text>{"Hello, "+user.displayName}</Navbar.Text>
+  <div style={{width: "25px"}}></div>
+    <Form>
+      <Row>
+        <Col xs="auto">
+          
+          <Button onClick={SignOut} type="submit">Login Out</Button>
+        </Col>
+        <div style={{width: "50px"}}></div>
+      </Row>
+    </Form>
+  </>)
+}
+
+function SignedOut()
+{
+  return <Form>
+  <Row>
+    
+    <Col xs="auto">
+      <Button onClick={SignIn} type="submit">Login</Button>
+    </Col>
+    <div style={{width: "50px"}}></div>
+  </Row>
+</Form>
+}
 
 function BaseNavbar() {
-  const [user, setUser] = user_state.useState();
+  const [user, setUser] = useState<User|null>(null);
+
+  useEffect(() => {
+    
+    auth.onAuthStateChanged(user => {
+      setUser(user);
+    })
+  }, [])
 
   return (
     <>
@@ -35,7 +87,8 @@ function BaseNavbar() {
             <Nav.Link href="#pricing">Chat</Nav.Link>
             <Nav.Link href="login">Login</Nav.Link>
           </Nav>
-          <h1>Username</h1>
+          {user?<SignedIn/>:<SignedOut/>}
+          
       </Navbar>
       <br />
       <div id="detail">
