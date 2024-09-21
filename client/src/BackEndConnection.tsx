@@ -27,7 +27,7 @@ function BackEndConnection()
 
             if (user != null)
             {
-                update_user_profile()
+                update_user_profile(user)
             } else {
                 setUserData(null)
             }
