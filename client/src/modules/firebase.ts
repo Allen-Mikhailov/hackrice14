@@ -14,17 +14,16 @@ const firebaseConfig = {
 };
 
 
-if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
-  {
-    const response = await fetch("/firebase_api_key.txt");
-    const text = await response.text();
-    firebaseConfig.apiKey = text;
-    console.log("fetched")
-  }
+if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+  const response = await fetch("/firebase_api_key.txt");
+  const text = await response.text();
+  firebaseConfig.apiKey = text;
+  console.log("fetched")
+}
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
 const auth = getAuth(app)
 
-export {app, db, auth}
+export { app, db, auth }

@@ -11,7 +11,6 @@ import './scss/styles.scss'
 
 // Import all of Bootstrap's JS
 
-
 import { auth } from './modules/firebase.ts'
 
 import {
@@ -33,7 +32,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BaseNavbar></BaseNavbar>
-    {auth.currentUser != null?auth.currentUser.displayName:"no user"}
+    {auth.currentUser != null ? auth.currentUser.displayName : "no user"}
     <RouterProvider router={router} />
   </StrictMode>,
 )
