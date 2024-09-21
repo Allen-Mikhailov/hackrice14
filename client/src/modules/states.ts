@@ -1,6 +1,6 @@
 import { createState } from "state-pool";
+import { User } from "firebase/auth";
 
-const user_data_state = createState<any>(null)
-const user_state = createState<any>(null)
+const user_data_state = createState<User|null>(null)
 
-export {user_state, user_data_state}
+export {user_data_state}

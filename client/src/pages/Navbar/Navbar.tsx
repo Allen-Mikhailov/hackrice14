@@ -3,6 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './Navbar.css'
 import { useState, useEffect } from 'react';
+import { User } from 'firebase/auth';
 
 import { Form, Row, Col, Button } from 'react-bootstrap';
 
@@ -25,12 +26,11 @@ function SignOut(e: any)
 
 function SignedIn()
 {
-  const [user, setUser] = useState<any>();
+  const [user, setUser] = useState<User|null>(null);
 
   useEffect(() => {
     
     auth.onAuthStateChanged(user => {
-      console.log("user", user)
       setUser(user);
     })
   }, [])
@@ -64,12 +64,11 @@ function SignedOut()
 }
 
 function BaseNavbar() {
-  const [user, setUser] = useState<any>();
+  const [user, setUser] = useState<User|null>(null);
 
   useEffect(() => {
     
     auth.onAuthStateChanged(user => {
-      console.log("auth state changed", user)
       setUser(user);
     })
   }, [])
