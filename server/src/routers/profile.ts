@@ -5,7 +5,11 @@ const profile = Router();
 
 profile.use(authMiddleware);
 
-profile.get("/", (_req, res: Response<{}, { user: UserData }>) => {
+profile.get("/me", (_req, res: Response<{}, { user: UserData }>) => {
+  res.json(res.locals.user);
+});
+
+profile.get("/:id", (_req, res: Response<{}, { user: UserData }>) => {
   res.json(res.locals.user);
 });
 

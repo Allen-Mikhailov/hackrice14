@@ -5,7 +5,7 @@ import { UserData } from "server/src/middleware/auth";
 
 async function getProfile(user: User): Promise<UserData | null>
 {
-    const response = await fetch(`/api/profile?id_token=${encodeURIComponent(await user.getIdToken(true))}`)
+    const response = await fetch(`/api/profile/me?id_token=${encodeURIComponent(await user.getIdToken(true))}`)
     if (!response.ok)
     {
         return null

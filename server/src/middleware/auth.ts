@@ -5,18 +5,11 @@ import { auth } from "../firebase";
 const users = database.collection("users");
 
 export type UserData = {
-  id: string,
+  firebase_id: string,
   matches: string[],
   chats: string[],
   bio: string,
-  have: {
-    skills: string[],
-    courses: string[]
-  },
-  need: {
-    skills: string[],
-    courses: string[]
-  }
+  skills: number[],
 }
 
 export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: string }>, res: Response<{}, { user: UserData | null }>, next: NextFunction) => {
@@ -39,7 +32,7 @@ export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: strin
 
   if (!user) {
     await users.insertOne({
-      "id": uid,
+      "firebase_id": uid,
       "matches": [],
       "chats": [],
       "bio": "",
@@ -54,7 +47,7 @@ export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: strin
     });
 
     user = {
-      id: uid,
+      firebase_id: uid,
       matches: [],
       chats: [],
       bio: "",
