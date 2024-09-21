@@ -11,11 +11,9 @@ function BackEndConnection()
 
     async function update_user_profile(user: User) {
         console.log("fetch attempt")
-        {
-            const profile = await getProfile(user)
-            console.log("profile", profile)
-            setUserData(profile)
-        }
+        const profile = await getProfile(user)
+        console.log("profile", profile)
+        setUserData(profile)
         
     }
 

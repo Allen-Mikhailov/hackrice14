@@ -10,11 +10,12 @@ function Username()
 function Bio()
 {
     return <div>
-        Bio Bio Bio Bio Bio Bio Bio Bio Bio Bio Bio Bio Bio Bio Bio Bio
-        
-        Bio Bio Bio Bio
+        Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
+        Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah
+        Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
     </div>
 }
+
 
 function InfoWindow()
 {
