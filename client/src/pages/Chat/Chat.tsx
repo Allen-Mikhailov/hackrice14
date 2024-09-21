@@ -6,8 +6,8 @@ function Chat()
         <div>
             <h1>Chat Page</h1>
         </div>
-        <h4>just, like, put a chat functionality here.</h4>
-        it's that easy.
+        <h4>just, like, put a chat box here</h4>
+        or something idk
     </div>
 }
 
