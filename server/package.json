@@ -17,7 +17,8 @@
     "cors": "^2.8.5",
     "express": "^4.21.0",
     "firebase-admin": "^12.5.0",
-    "mongodb": "^6.9.0"
+    "mongodb": "^6.9.0",
+    "socket.io": "^4.8.0"
   },
   "devDependencies": {
     "@types/mongodb": "^4.0.6",

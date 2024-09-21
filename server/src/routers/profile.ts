@@ -1,4 +1,4 @@
-import { Router, Response } from "express";
+import { Router, Response, Request } from "express";
 import { authMiddleware, UserData } from "../middleware/auth";
 import { database } from "../mongodb";
 
@@ -9,6 +9,18 @@ profile.use(authMiddleware);
 
 profile.get("/me", (_req, res: Response<{}, { user: UserData }>) => {
   res.json(res.locals.user);
+});
+
+profile.post("/me", async (req: Request<{}, {}, { bio: string }>, res: Response<{}, { user: UserData }>) => {
+  let { bio } = req.body;
+
+  if (bio === undefined) {
+    res.status(400).send("Missing bio");
+    return;
+  }
+
+  await users.updateOne({ firebase_id: res.locals.user.firebase_id }, { "$set": { bio } });
+  res.json({ ...res.locals.user, bio });
 });
 
 profile.get("/:id", async (req, res: Response<{}, { user: UserData }>) => {
