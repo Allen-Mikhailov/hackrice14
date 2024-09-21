@@ -66,9 +66,8 @@ function SignedOut()
 {
   return <Form>
   <Row>
-    
     <Col xs="auto">
-      <Button onClick={SignIn} type="submit">Login</Button>
+      <Button onClick={SignIn} type="submit">Login/Signup</Button>
     </Col>
     <div style={{width: "50px"}}></div>
   </Row>
