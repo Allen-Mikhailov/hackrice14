@@ -1,6 +1,5 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
 import './index.css'
 
 import Home from './pages/Home/Home.tsx'
@@ -13,6 +12,8 @@ import './scss/styles.scss'
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'
 
+
+import { app, auth } from './modules/firebase.ts'
 
 import {
   createBrowserRouter,
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BaseNavbar></BaseNavbar>
+    {auth.currentUser != null?auth.currentUser.displayName:"no user"}
     <RouterProvider router={router} />
   </StrictMode>,
 )
