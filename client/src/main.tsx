@@ -7,7 +7,7 @@ import Home from './pages/Home/Home.tsx'
 import Userinfo from './pages/Userinfo/Userinfo.tsx'
 import BaseNavbar from './pages/Navbar/Navbar.tsx'
 
-import { user_state } from './modules/states.ts'
+import BackEndConnection from './BackEndConnection.tsx'
 
 import Login from './pages/Login/Login.tsx'
 // Import our custom CSS
@@ -46,6 +46,7 @@ const router = createBrowserRouter([
 function App()
 {
   return <>
+    <BackEndConnection/>
     <BaseNavbar></BaseNavbar>
     
   </>
