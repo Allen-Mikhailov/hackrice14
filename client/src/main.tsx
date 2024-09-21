@@ -12,7 +12,7 @@ import './scss/styles.scss'
 // Import all of Bootstrap's JS
 
 
-import { auth } from './modules/firebase.ts'
+import { auth, google_auth, signInWithPopup } from './modules/firebase.ts'
 
 import {
   createBrowserRouter,
@@ -30,10 +30,19 @@ const router = createBrowserRouter([
   },
 ]);
 
+function SignInButton()
+{
+  function onclick()
+  {
+    signInWithPopup(auth, google_auth)
+  }
+  return <div onClick={onclick}>Sign In</div>
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BaseNavbar></BaseNavbar>
-    {auth.currentUser != null?auth.currentUser.displayName:"no user"}
+    {auth.currentUser != null?auth.currentUser.displayName:<SignInButton/>}
     <RouterProvider router={router} />
   </StrictMode>,
 )
