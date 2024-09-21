@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import { database } from "../mongodb";
-import { ObjectId } from "mongodb";
 import { auth } from "../firebase";
 
 const users = database.collection("users");
