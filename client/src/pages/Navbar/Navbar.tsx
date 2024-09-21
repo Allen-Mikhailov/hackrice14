@@ -23,13 +23,13 @@ import {
   BrowserRouter, Routes, Route, Router
 } from 'react-router-dom';
 
-async function SignIn(e: InputEvent)
+async function SignIn(e: any)
 {
   e.preventDefault()
   const result = await signInWithPopup(auth, google_auth);
 }
 
-function SignOut(e: InputEvent)
+function SignOut(e: any)
 {
   e.preventDefault()
   signOut(auth)
