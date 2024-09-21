@@ -4,6 +4,8 @@ import { user_data_state } from "../../modules/states"
 import { useEffect, useState, useRef } from "react"
 import { User } from "firebase/auth"
 
+import ListGroup from 'react-bootstrap/ListGroup';
+
 function Username(props: {username: string})
 {
     let {username} = props
