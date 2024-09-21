@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "firebase_api_key",
@@ -13,12 +13,13 @@ const firebaseConfig = {
   measurementId: "G-DSL7XZVYV5"
 };
 
+const google_auth = new GoogleAuthProvider()
 
-if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+{
   const response = await fetch("/firebase_api_key.txt");
   const text = await response.text();
   firebaseConfig.apiKey = text;
-  console.log("fetched")
 }
 
 // Initialize Firebase
@@ -26,4 +27,4 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
 const auth = getAuth(app)
 
-export { app, db, auth }
+export {app, db, auth, google_auth, signInWithPopup }
