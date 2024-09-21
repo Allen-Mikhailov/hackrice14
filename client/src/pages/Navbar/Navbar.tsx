@@ -3,6 +3,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './Navbar.css'
 
+import { user_state } from '../../modules/states';
+
 import { auth, google_auth, signInWithPopup } from '../../modules/firebase';
 
 function SignInButton()
@@ -17,13 +19,15 @@ import { Outlet, Link } from "react-router-dom";
 
 
 function BaseNavbar() {
+  const [user, setUser] = user_state.useState();
+
   return (
     <>
       <div>
         
       </div>
       <Navbar bg="dark" data-bs-theme="dark">
-        <Container>
+          <div style={{width: "50px"}}></div>
           <Navbar.Brand href="/">Moti-Vibes</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="userinfo">User Profile</Nav.Link>
@@ -32,7 +36,6 @@ function BaseNavbar() {
             <Nav.Link href="login">Login</Nav.Link>
           </Nav>
           <h1>Username</h1>
-        </Container>
       </Navbar>
       <br />
       <div id="detail">
