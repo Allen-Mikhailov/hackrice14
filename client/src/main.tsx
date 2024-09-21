@@ -1,11 +1,15 @@
-import { StrictMode } from 'react'
+import { StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import { GoogleAuthProvider } from 'firebase/auth/web-extension'
 
 import Home from './pages/Home/Home.tsx'
 import Userinfo from './pages/Userinfo/Userinfo.tsx'
 import BaseNavbar from './pages/Navbar/Navbar.tsx'
 
+import { user_state } from './modules/states.ts'
+
+import Login from './pages/Login/Login.tsx'
 // Import our custom CSS
 import './scss/styles.scss'
 
@@ -23,26 +27,42 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home/>,
+    children: [
+      {
+        path: "users",
+        element: <Userinfo />
+      },
+    ]
   },
   {
-    path: "Userinfo",
+    path: "/Userinfo",
     element: <Userinfo/>
+  },
+  {
+    path:"login",
+    element:<Login/>,
   },
 ]);
 
-function SignInButton()
+function App()
 {
-  function onclick()
-  {
-    signInWithPopup(auth, google_auth)
-  }
-  return <div onClick={onclick}>Sign In</div>
+  const [user, setUser] = user_state.useState();
+
+  useEffect(() => {
+    
+    auth.onAuthStateChanged(user => {
+      setUser(user);
+    })
+  }, [])
+
+  return <div>
+
+  </div>
 }
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BaseNavbar></BaseNavbar>
-    {auth.currentUser != null ? auth.currentUser.displayName : <SignInButton/>}
     <RouterProvider router={router} />
   </StrictMode>,
 )
