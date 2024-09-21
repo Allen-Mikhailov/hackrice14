@@ -2,7 +2,6 @@ import { Router, Response } from "express";
 import { authMiddleware } from "../middleware/auth";
 import { database } from "../mongodb";
 import { UserData } from "../middleware/auth";
-import { WithId } from "mongodb";
 
 const collection = database.collection("chats");
 const chats = Router();
@@ -34,5 +33,7 @@ chats.get("/:id", async (req, res: Response<Chat | string, { user: UserData }>) 
 
   res.json(chat);
 });
+
+
 
 export default chats;
