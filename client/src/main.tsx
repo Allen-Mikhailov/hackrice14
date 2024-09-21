@@ -9,7 +9,6 @@ import BaseNavbar from './pages/Navbar/Navbar.tsx'
 
 import BackEndConnection from './BackEndConnection.tsx'
 
-import Login from './pages/Login/Login.tsx'
 // Import our custom CSS
 import './scss/styles.scss'
 
@@ -21,27 +20,6 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home/>,
-    children: [
-      {
-        path: "users",
-        element: <Userinfo />
-      },
-    ]
-  },
-  {
-    path: "/Userinfo",
-    element: <Userinfo/>
-  },
-  {
-    path:"login",
-    element:<Login/>,
-  },
-]);
 
 function App()
 {

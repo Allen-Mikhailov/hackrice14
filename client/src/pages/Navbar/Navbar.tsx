@@ -16,7 +16,6 @@ import Home from '../Home/Home'
 import Userinfo from '../Userinfo/Userinfo'
 import Catalog from '../Catalog/Catalog'
 import Chat from '../Chat/Chat'
-import Login from '../Login/Login'
 
 
 
@@ -98,7 +97,6 @@ function BaseNavbar() {
             <Nav.Link as={Link} to="Userinfo">User Profile</Nav.Link>
             <Nav.Link as={Link} to="Catalog">Find Unmotivated</Nav.Link>
             <Nav.Link as={Link} to="Chat">Chat</Nav.Link>
-            <Nav.Link as={Link} to="Login">Login</Nav.Link>
           </Nav>
           {user?<SignedIn/>:<SignedOut/>}
           
@@ -109,7 +107,6 @@ function BaseNavbar() {
           <Route path="/Userinfo" element={<Userinfo/>} />
           <Route path="/Catalog" element={<Catalog/>} />
           <Route path="/Chat" element={<Chat/>} />\
-          <Route path="/Login" element={<Login/>} />
         </Routes>
       </div>
       </BrowserRouter>
