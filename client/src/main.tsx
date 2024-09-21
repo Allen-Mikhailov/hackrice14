@@ -47,7 +47,7 @@ function App()
 {
   return <>
     <BaseNavbar></BaseNavbar>
-    <RouterProvider router={router} />
+    
   </>
 }
 

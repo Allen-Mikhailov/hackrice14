@@ -11,6 +11,18 @@ import {  } from '../../modules/states';
 import { Outlet, Link } from "react-router-dom";
 import { auth, google_auth, signInWithPopup, signOut } from '../../modules/firebase';
 
+import Home from '../Home/Home'
+import Userinfo from '../Userinfo/Userinfo'
+import Catalog from '../Catalog/Catalog'
+import Chat from '../Chat/Chat'
+import Login from '../Login/Login'
+
+
+
+import {
+  BrowserRouter, Routes, Route, Router
+} from 'react-router-dom';
+
 async function SignIn(e: any)
 {
   e.preventDefault()
@@ -77,20 +89,31 @@ function BaseNavbar() {
   return (
     <>
       <div>
-        
+      
       </div>
+      <BrowserRouter>
       <Navbar bg="dark" data-bs-theme="dark">
           <div style={{width: "50px"}}></div>
           <Navbar.Brand href="/">Moti-Vibes</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="userinfo">User Profile</Nav.Link>
-            <Nav.Link href="#features">Find Unmotivated</Nav.Link>
-            <Nav.Link href="#pricing">Chat</Nav.Link>
-            <Nav.Link href="login">Login</Nav.Link>
+            <Nav.Link as={Link} to="Userinfo">User Profile</Nav.Link>
+            <Nav.Link as={Link} to="Catalog">Find Unmotivated</Nav.Link>
+            <Nav.Link as={Link} to="Chat">Chat</Nav.Link>
+            <Nav.Link as={Link} to="Login">Login</Nav.Link>
           </Nav>
           {user?<SignedIn/>:<SignedOut/>}
           
       </Navbar>
+      <div>
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/Userinfo" element={<Userinfo/>} />
+          <Route path="/Catalog" element={<Catalog/>} />
+          <Route path="/Chat" element={<Chat/>} />\
+          <Route path="/Login" element={<Login/>} />
+        </Routes>
+      </div>
+      </BrowserRouter>
       <br />
       <div id="detail">
         <Outlet />
