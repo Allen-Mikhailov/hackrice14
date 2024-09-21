@@ -13,5 +13,7 @@ if (process.env.NODE_ENV === "production") {
 } else {
   https.createServer({
     cert: fs.readFileSync("/root/cert.txt"),
-  }, app).listen(443);
+  }, app).listen(443, () => {
+    console.log("listening");
+  });
 }
