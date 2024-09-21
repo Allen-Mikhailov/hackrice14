@@ -1,4 +1,4 @@
-
+import ListGroup from 'react-bootstrap/ListGroup';
 
 function Username()
 {
@@ -13,6 +13,16 @@ function Bio()
         Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
         Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah
         Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
+        Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
+        Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah
+        Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
+        Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
+        Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah
+        Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
+        Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
+        Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah
+        Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah 
+        
     </div>
 }
 
@@ -20,16 +30,13 @@ function Bio()
 function InfoWindow()
 {
     return <div>
-        
-            <div className="Table">
-                {<Username></Username>}
-            </div>
-            <div className="Table">
-                {<Bio></Bio>}
-            </div>
-            
-        
-    </div>
+    
+        <ListGroup>
+            <ListGroup.Item>{<Username></Username>}</ListGroup.Item>
+            <ListGroup.Item>{<Bio></Bio>}</ListGroup.Item>
+        </ListGroup>
+
+</div>
 }
 
 

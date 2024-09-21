@@ -16,6 +16,7 @@ import Home from '../Home/Home'
 import Userinfo from '../Userinfo/Userinfo'
 import Catalog from '../Catalog/Catalog'
 import Chat from '../Chat/Chat'
+import ChatSelect from '../ChatSelect/ChatSelect'
 
 
 
@@ -95,7 +96,8 @@ function BaseNavbar() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="Userinfo">User Profile</Nav.Link>
             <Nav.Link as={Link} to="Catalog">Find Unmotivated</Nav.Link>
-            <Nav.Link as={Link} to="Chat">Chat</Nav.Link>
+            <Nav.Link as={Link} to="Chat">Test chat(will eventually be in chatselect)</Nav.Link>
+            <Nav.Link as={Link} to="ChatSelect">Chat</Nav.Link>
           </Nav>
           {user?<SignedIn/>:<SignedOut/>}
           
@@ -105,7 +107,8 @@ function BaseNavbar() {
           <Route path="/" element={<Home/>} />
           <Route path="/Userinfo" element={<Userinfo/>} />
           <Route path="/Catalog" element={<Catalog/>} />
-          <Route path="/Chat" element={<Chat/>} />\
+          <Route path="/Chat" element={<Chat/>} />
+          <Route path="/ChatSelect" element={<ChatSelect/>} />
         </Routes>
       </div>
       </BrowserRouter>
