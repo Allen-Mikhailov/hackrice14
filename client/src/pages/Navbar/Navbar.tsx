@@ -3,6 +3,17 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './Navbar.css'
 
+import { auth, google_auth, signInWithPopup } from '../../modules/firebase';
+
+function SignInButton()
+{
+  async function onclick()
+  {
+    const result = await signInWithPopup(auth, google_auth)
+  }
+  return <div onClick={onclick}>Sign In</div>
+}
+
 function BaseNavbar() {
   return (
     <>
