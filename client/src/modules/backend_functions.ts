@@ -1,10 +1,15 @@
 import { User } from "firebase/auth";
+import { UserData } from "server/src/middleware/auth";
 
-const base_url = "localhost:8080"
+// const base_url = "http://localhost:8080"
 
-async function getProfile(user: User)
+async function getProfile(user: User): Promise<UserData | null>
 {
-    const response = await fetch(base_url+`/profile?token_id=${await user.getIdToken()}`)
+    const response = await fetch(`http://localhost:8080/profile?id_token=${encodeURIComponent(await user.getIdToken(true))}`)
+    if (!response.ok)
+    {
+        return null
+    }
     return await (response.json())
 }
 

@@ -10,9 +10,9 @@ const app = express();
 
 app.use(cors());
 
-app.use("/profile", require("./routers/profile").default);
-app.use("/todo", require("./routers/todo").default);
-app.use("/chats", require("./routers/chats").default);
+app.use("/profile", (await import("./routers/profile")).default);
+app.use("/todo", (await import("./routers/todo")).default);
+app.use("/chats", (await import("./routers/chats")).default);
 
 app.get("/", (req, res) => {
   res.send("test");

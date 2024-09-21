@@ -1,16 +1,12 @@
 import { Request, Response, NextFunction } from "express";
-import { signInWithCredential, GoogleAuthProvider } from "firebase/auth";
 import { database } from "../mongodb";
 import { ObjectId } from "mongodb";
 import { auth } from "../firebase";
 
 const users = database.collection("users");
 
-export type User = {
-  _id: ObjectId,
-  email: string | null,
-  name: string | null,
-  photo: string | null,
+export type UserData = {
+  id: string,
   matches: string[],
   chats: string[],
   bio: string,
@@ -24,27 +20,29 @@ export type User = {
   }
 }
 
-export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: string }>, res: Response<{}, { user: User | null }>, next: NextFunction) => {
-  const credential = GoogleAuthProvider.credential(req.query.id_token);
+export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: string }>, res: Response<{}, { user: UserData | null }>, next: NextFunction) => {
+  const id_token = decodeURIComponent(req.query.id_token);
 
-  const userCred = await signInWithCredential(auth, credential).catch(e => {
-    console.log(e);
+  const uid = await auth.verifyIdToken(id_token).then(async (decodedToken) => {
+    return decodedToken.uid;
+  }).catch((error) => {
+    console.error(error);
+    return null;
   });
 
-  if (userCred === void 0) {
+
+  if (!uid) {
     res.status(401).send("Unauthorized");
     return;
   }
 
-  let user = await users.findOne<User>({ "id": userCred.user.uid });
+  let user = await users.findOne<UserData>({ "id": uid });
 
   if (!user) {
     await users.insertOne({
-      "_id": new ObjectId(userCred.user.uid),
-      "email": userCred.user.email,
-      "name": userCred.user.displayName,
-      "photo": userCred.user.photoURL,
-      "chat_id": null,
+      "id": uid,
+      "matches": [],
+      "chats": [],
       "bio": "",
       "have": {
         "skills": [],
@@ -57,20 +55,17 @@ export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: strin
     });
 
     user = {
-      _id: new ObjectId(userCred.user.uid),
-      email: userCred.user.email,
-      name: userCred.user.displayName,
-      photo: userCred.user.photoURL,
+      id: uid,
       matches: [],
       chats: [],
-      "bio": "",
-      "have": {
-        "skills": [],
-        "courses": []
+      bio: "",
+      have: {
+        skills: [],
+        courses: []
       },
-      "need": {
-        "skills": [],
-        "courses": []
+      need: {
+        skills: [],
+        courses: []
       }
     }
   }
