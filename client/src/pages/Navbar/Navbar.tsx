@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './Navbar.css'
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { User } from 'firebase/auth';
 
 import { Form, Row, Col, Button } from 'react-bootstrap';
@@ -23,13 +23,13 @@ import {
   BrowserRouter, Routes, Route, Router
 } from 'react-router-dom';
 
-async function SignIn(e: InputEvent)
+async function SignIn(e: React.MouseEvent)
 {
   e.preventDefault()
   const result = await signInWithPopup(auth, google_auth);
 }
 
-function SignOut(e: InputEvent)
+function SignOut(e: React.MouseEvent)
 {
   e.preventDefault()
   signOut(auth)
