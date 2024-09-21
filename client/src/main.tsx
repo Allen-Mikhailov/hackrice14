@@ -10,10 +10,9 @@ import BaseNavbar from './pages/Navbar/Navbar.tsx'
 import './scss/styles.scss'
 
 // Import all of Bootstrap's JS
-import * as bootstrap from 'bootstrap'
 
 
-import { app, auth } from './modules/firebase.ts'
+import { auth } from './modules/firebase.ts'
 
 import {
   createBrowserRouter,
