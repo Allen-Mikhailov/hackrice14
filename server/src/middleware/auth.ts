@@ -24,15 +24,15 @@ export type User = {
   }
 }
 
-export const authMiddleware = async (req: Request<{}, { id_token: string }>, res: Response<{}, { user: User | null }>, next: NextFunction) => {
-  const credential = GoogleAuthProvider.credential(req.body.id_token);
+export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: string }>, res: Response<{}, { user: User | null }>, next: NextFunction) => {
+  const credential = GoogleAuthProvider.credential(req.query.id_token);
 
   const userCred = await signInWithCredential(auth, credential).catch(e => {
     console.log(e);
   });
 
-  if (!userCred) {
-    res.locals.user = null;
+  if (userCred === void 0) {
+    res.status(401).send("Unauthorized");
     return;
   }
 
