@@ -9,11 +9,11 @@ app.get("/", (req, res) => {
 });
 
 if (process.env.NODE_ENV === "production") {
-  app.listen(80);
-} else {
   https.createServer({
     cert: fs.readFileSync("/root/cert.txt"),
   }, app).listen(443, () => {
     console.log("listening");
   });
+} else {
+  app.listen(80);
 }
