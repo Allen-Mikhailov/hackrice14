@@ -51,14 +51,7 @@ export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: strin
       matches: [],
       chats: [],
       bio: "",
-      have: {
-        skills: [],
-        courses: []
-      },
-      need: {
-        skills: [],
-        courses: []
-      }
+      skills: []
     }
   }
 
