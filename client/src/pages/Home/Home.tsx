@@ -8,6 +8,7 @@ function Home()
         </div>
         <h4>Crowdsourced Academic Encouragement to Combat Procrastination.</h4>
     </div>
+    
 }
 
 export default Home
