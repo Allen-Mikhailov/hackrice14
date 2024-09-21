@@ -12,15 +12,6 @@ import BackEndConnection from './BackEndConnection.tsx'
 // Import our custom CSS
 import './scss/styles.scss'
 
-// Import all of Bootstrap's JS
-
-import { auth, google_auth, signInWithPopup } from './modules/firebase.ts'
-
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-
 function App()
 {
   return <>

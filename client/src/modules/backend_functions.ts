@@ -14,7 +14,9 @@ async function getProfile(user: User): Promise<UserData | null>
     {
         return null
     }
-    return await (response.json())
+    const json = await (response.json())
+    console.log("profile", json)
+    return json
 }
 
 export { getProfile }
