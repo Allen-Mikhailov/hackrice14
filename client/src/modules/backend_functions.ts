@@ -1,11 +1,15 @@
 import { User } from "firebase/auth";
 import { UserData } from "server/src/middleware/auth";
 
-// const base_url = "http://localhost:8080"
-
 async function getProfile(user: User): Promise<UserData | null>
 {
-    const response = await fetch(`/api/profile/me?id_token=${encodeURIComponent(await user.getIdToken(true))}`)
+    let starting_point = ""
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+        starting_point = "http://localhost:8080"
+    else 
+        starting_point = "https://motivibe.live"
+
+    const response = await fetch(`${starting_point}/profile/me?id_token=${encodeURIComponent(await user.getIdToken(true))}`)
     if (!response.ok)
     {
         return null

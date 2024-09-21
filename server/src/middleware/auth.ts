@@ -28,24 +28,9 @@ export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: strin
     return;
   }
 
-  let user = await users.findOne<UserData>({ "id": uid });
+  let user = await users.findOne<UserData>({ "firebase_id": uid });
 
   if (!user) {
-    await users.insertOne({
-      "firebase_id": uid,
-      "matches": [],
-      "chats": [],
-      "bio": "",
-      "have": {
-        "skills": [],
-        "courses": []
-      },
-      "need": {
-        "skills": [],
-        "courses": []
-      }
-    });
-
     user = {
       firebase_id: uid,
       matches: [],
@@ -53,6 +38,8 @@ export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: strin
       bio: "",
       skills: []
     }
+
+    await users.insertOne(user);
   }
 
   res.locals.user = user;
