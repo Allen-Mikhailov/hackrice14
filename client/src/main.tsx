@@ -46,23 +46,14 @@ const router = createBrowserRouter([
 
 function App()
 {
-  const [user, setUser] = user_state.useState();
-
-  useEffect(() => {
-    
-    auth.onAuthStateChanged(user => {
-      setUser(user);
-    })
-  }, [])
-
-  return <div>
-
-  </div>
+  return <>
+    <BaseNavbar></BaseNavbar>
+    <RouterProvider router={router} />
+  </>
 }
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BaseNavbar></BaseNavbar>
-    <RouterProvider router={router} />
+    <App/>
   </StrictMode>,
 )
