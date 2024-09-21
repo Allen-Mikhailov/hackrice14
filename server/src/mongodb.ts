@@ -1,7 +1,7 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 // loads env variables from .env file
 import { config } from "dotenv";
-config();
+if (process.env.NODE_ENV !== "production") config();
 
 const uri = process.env.MONGODB_URI || "";
 
