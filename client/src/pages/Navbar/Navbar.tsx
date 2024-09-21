@@ -101,7 +101,7 @@ function BaseNavbar() {
           {user?<SignedIn/>:<SignedOut/>}
           
       </Navbar>
-      <div>
+      <div style={{padding: 50}}>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/Userinfo" element={<Userinfo/>} />
