@@ -5,6 +5,8 @@ const profile = Router();
 
 profile.use(authMiddleware);
 
-profile.get("", );
+profile.get("/", (req, res) => {
+  res.send("profile");
+});
 
 export default profile;

@@ -1,17 +1,17 @@
 import { Request, Response, NextFunction } from "express";
-import { getAuth, signInWithCredential, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithCredential, GoogleAuthProvider, User } from "firebase/auth";
 
 const auth = getAuth();
 
-export const authMiddleware = async (req: Request<{}, { id_token: string }>, res: Response, next: NextFunction) => {
+export const authMiddleware = async (req: Request<{}, { id_token: string }>, res: Response<{}, { user: User | null }>, next: NextFunction) => {
   const credential = GoogleAuthProvider.credential(req.body.id_token);
 
-  const user = await signInWithCredential(auth, credential).catch(e => {
+  const userCred = await signInWithCredential(auth, credential).catch(e => {
     console.log(e);
   });
 
-  if (user) {
-    res.locals.user = user;
+  if (userCred) {
+    res.locals.user = userCred.user;
     next();
   } else {
     res.locals.user = null;
