@@ -73,7 +73,6 @@ function BaseNavbar() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="userinfo">User Profile</Nav.Link>
             <Nav.Link as={Link} to="todo">Todo</Nav.Link>
-            <Nav.Link as={Link} to="chat">Test chat</Nav.Link>
             <Nav.Link as={Link} to="chatSelect">Chat</Nav.Link>
           </Nav>
           {user?<SignedIn/>:<SignedOut/>}
