@@ -6,6 +6,31 @@ const users = database.collection<UserData>("users");
 const chats = database.collection("chats");
 const matches = Router();
 
+matches.get("/all", async (_req, res: Response<{ all: boolean }, { user: UserData }>) => {
+  let all = false;
+  while ((await users.countDocuments({open_to_wave: true})) > 1) {
+    all = true;
+    let user1 = await users.findOne<UserData>({open_to_wave: true});
+
+    if (!user1) {
+      continue;
+    }
+
+    let user2 = await users.findOne<UserData>({open_to_wave: true, firebase_id: { "$ne": user1.firebase_id }});
+
+    if (!user1 || !user2) {
+      all = false;
+      continue;
+    }
+    
+    await makeMatch(user1.firebase_id, user2.firebase_id).catch((e) => {
+      all = false;
+    });
+  }
+
+  res.json({ all });
+});
+
 matches.use(authMiddleware);
 
 async function makeMatch(user1_id: string, user2_id: string) {
@@ -65,32 +90,6 @@ matches.delete("/remove", async (req: Request<{}, {}, {user1_id: string, user2_i
   users.updateOne({ firebase_id: user1_id }, { "$pull": { matches: { other_user_id: user2_id } } });
   users.updateOne({ firebase_id: user2_id }, { "$pull": { matches: { other_user_id: user1_id } } });
   res.json(res.locals.user);
-});
-
-
-matches.get("/all", async (_req, res: Response<{ all: boolean }, { user: UserData }>) => {
-  let all = false;
-  while ((await users.countDocuments({open_to_wave: true})) > 1) {
-    all = true;
-    let user1 = await users.findOne<UserData>({open_to_wave: true});
-
-    if (!user1) {
-      continue;
-    }
-
-    let user2 = await users.findOne<UserData>({open_to_wave: true, firebase_id: { "$ne": user1.firebase_id }});
-
-    if (!user1 || !user2) {
-      all = false;
-      continue;
-    }
-    
-    await makeMatch(user1.firebase_id, user2.firebase_id).catch((e) => {
-      all = false;
-    });
-  }
-
-  res.json({ all });
 });
 
 export default matches;
