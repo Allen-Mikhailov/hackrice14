@@ -8,7 +8,7 @@ import BackEndConnection from './BackEndConnection.tsx'
 
 import Home from './pages/Home/Home.tsx'
 import Userinfo from './pages/Userinfo/Userinfo'
-import Catalog from './pages/Todo/Todo.tsx'
+import Todo from './pages/Todo/Todo.tsx'
 import Chat from './pages/Chat/Chat'
 import ChatSelect from './pages/ChatSelect/ChatSelect'
 
@@ -25,7 +25,8 @@ function Footer()
       <img src={githublogo} alt="github logo" style={{
         width:30,
         height:30,
-        margin:50
+        margin:25,
+        filter: "invert(100%)"
       }}></img>
     </a> 
   </div>
@@ -42,7 +43,7 @@ function App()
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/userinfo" element={<Userinfo/>} />
-          <Route path="/catalog" element={<Catalog/>} />
+          <Route path="/todo" element={<Todo/>} />
           <Route path="/chat/:id" element={<Chat/>} />
           <Route path="/chatSelect" element={<ChatSelect/>} />
         </Routes>
