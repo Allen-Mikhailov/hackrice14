@@ -37,7 +37,7 @@ function Bio(props: {bio: string})
             setUserData(new_data)
             
             if (auth.currentUser != null)
-                setProfileBio(auth.currentUser, new_data)
+                setProfileBio(auth.currentUser, localBio)
         } else {
             setLocalBio(bio)
         }
