@@ -25,7 +25,7 @@ function Chat() {
   function recieve_message(message: Message, user: User) {
     if (message.user === user.displayName) {return;}
     console.log("raaaa", messages);
-    const new_messages = [...JSON.parse(JSON.stringify(messages)), message]
+    const new_messages = [...messages, message]
     setMessages(new_messages);
   }
 
@@ -70,7 +70,7 @@ function Chat() {
       message: input.current.value,
     };
 
-    const new_messages = [...JSON.parse(JSON.stringify(messages)), message]
+    const new_messages = [...messages, message]
     console.log("wdawtf", messages, new_messages)
 
     setMessages(new_messages);
