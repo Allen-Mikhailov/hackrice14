@@ -33,11 +33,11 @@ function Chat() {
       }
 
       setMessages(_chat.messages || []);
+      const token = await user.getIdToken();
+      console.log(token);
 
-      const socket = io(`${getStartingPoint()}/socket.io`, {
-        auth: {
-          token: auth.currentUser?.getIdToken(),
-        },
+      const socket = io(`ws://localhost:8081`, {
+        auth: { token },
       });
       socket.connect();
       socket.on("connect", () => {
@@ -47,6 +47,7 @@ function Chat() {
         setMessages([...messages, message]);
       });
       send.current = (message: Message) => {
+        console.log(message)
         socket.emit("message", message);
       }
     });
