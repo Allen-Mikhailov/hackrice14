@@ -5,7 +5,7 @@ import { useState } from "react";
 import { UserData } from "server/src/middleware/auth";
 
 function Match() {
-  const [name, setName] = useState("Looks like everyone's taken...");
+  const [name, setName] = useState("...");
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
@@ -16,6 +16,7 @@ function Match() {
       const res = await requestMatch(user);
 
       if (!res) {
+        setName("Looks like everyone's taken...")
         return;
       }
 
