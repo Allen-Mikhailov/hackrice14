@@ -20,15 +20,15 @@ function Chat() {
   useEffect(() => {
     (async () => {
       if (!auth.currentUser) {
-        nav("/");
+        //nav("/");
         return;
       }
-      
+
       setChat(await getChat(auth.currentUser, id));
       setMessages(chat?.messages || []);
 
       if (!chat) {
-        nav("/");
+        //nav("/");
         return;
       }
 
