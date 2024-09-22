@@ -3,6 +3,8 @@ import "./Home.css"
 function Home()
 {
     return <div>
+        <br></br>
+        <br></br>
         <div className="cool-title">
         <strong>Moti-Vibes.</strong>
             </div>
