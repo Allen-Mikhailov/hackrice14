@@ -1,36 +1,53 @@
 import { auth } from "../../modules/firebase"
 import { UserData } from "server/src/middleware/auth"
 import { user_data_state } from "../../modules/states"
-import { useEffect, useState, useRef } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import { User } from "firebase/auth"
 import Button from 'react-bootstrap/Button'
-import ListGroup from 'react-bootstrap/ListGroup';
-import Form from 'react-bootstrap/Form'
 
 import "./Userinfo.css"
-
-function Username(props: {username: string})
-{
-    let {username} = props
-    return <div>
-        {username}
-    </div>
-}
+import { setProfileBio } from "../../modules/backend_functions"
 
 function Bio(props: {bio: string})
 {
     let {bio} = props
     const [editing, setEditing] = useState(false)
+    const [localBio, setLocalBio] = useState("")
+    const [userData, setUserData] = user_data_state.useState()
+
+    useEffect(() => {
+
+    }, [bio])
 
     const textboxRef = useRef(null);
 
+    function can_save()
+    {
+        return localBio.length <= 500
+    }
+
     function save_bio()
     {
+        if (!textboxRef.current) {return;}
+
+        if (can_save())
+        {
+            const new_data = JSON.parse(JSON.stringify(userData))
+            new_data.bio = localBio
+            setUserData(new_data)
+            
+            if (auth.currentUser != null)
+                setProfileBio(auth.currentUser, localBio)
+        } else {
+            setLocalBio(bio)
+        }
+
         setEditing(false)
     }
 
     function cancel_edit()
     {
+        setLocalBio(bio)
         setEditing(false)
     }
 
@@ -39,9 +56,14 @@ function Bio(props: {bio: string})
         setEditing(true)
     }
 
+    function textbox_change(e: any)
+    {
+        setLocalBio(e.target.value)
+    }
+
     return <div>
         <h3>Biography</h3>
-        <textarea ref={textboxRef} className="biotextarea">
+        <textarea ref={textboxRef} className="biotextarea" disabled={!editing} value={localBio} onChange={textbox_change}>
             
         </textarea>
         <br/>

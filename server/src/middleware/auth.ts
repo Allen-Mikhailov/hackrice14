@@ -4,10 +4,14 @@ import { auth } from "../firebase";
 
 const users = database.collection<UserData>("users");
 
+export type Match = {
+  other_user_id: string,
+  chat_id: string
+}
+
 export type UserData = {
   firebase_id: string,
-  matches: string[],
-  chats: string[],
+  matches: Match[],
   bio: string,
   skills: number[],
 }
@@ -33,7 +37,6 @@ export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: strin
     user = {
       firebase_id: uid,
       matches: [],
-      chats: [],
       bio: "",
       skills: []
     }

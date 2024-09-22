@@ -1,4 +1,9 @@
 .biotextarea {
     width: min(75vh, calc(90vw - 50px));
     height: 50vh;
+
+    background-color: #3b3b3b;
+    border: none;
+    outline: none;
+    padding: 2vh;
 }
