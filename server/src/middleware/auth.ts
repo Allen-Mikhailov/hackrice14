@@ -23,7 +23,7 @@ export type UserData = {
   open_to_wave: boolean,
   matches: Match[],
   bio: string,
-  skills: number[],
+  traits: number[],
   todo_list: Todo[]
 }
 
@@ -58,7 +58,7 @@ export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: strin
       open_to_wave: true,
       matches: [],
       bio: "",
-      skills: [],
+      traits: [],
       todo_list: []
     }
 

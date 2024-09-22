@@ -18,6 +18,14 @@ profile.post("/me", async (req: Request<{}, {}, Partial<{ bio: string, open_to_w
   res.json({ ...user, bio, open_to_wave });
 });
 
+// profile.post("/task_add", async (req: Request<{}, {}, Partial<{ title: string, completed: boolean, timestamp: number }>>, res: Response<{}, { user: UserData }>) => {
+//   let { title, completed, timestamp } = req.body;
+//   const user = res.locals.user;
+//   await users.updateOne({ firebase_id: user.firebase_id }, { "$push": { todo_list: { title: title || "", 
+//     completed: completed || false, timestamp: timestamp || 0 } } });
+//   // res.json({ ...user, bio, open_to_wave });
+// });
+
 profile.get("/:id", async (req, res: Response<{}, { user: UserData }>) => {
   let user;
   
