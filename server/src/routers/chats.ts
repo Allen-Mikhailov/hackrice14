@@ -9,7 +9,7 @@ import { auth } from "../firebase";
 const collection = database.collection<Chat>("chats");
 const chats = Router();
 const io = new Server({
-  path: "/chats/socket.io",
+  path: "/socket.io",
 });
 
 export type Message = {
@@ -34,9 +34,7 @@ chats.get("/", async (_req, res: Response<Chat[], { user: UserData }>) => {
 chats.get("/:id", async (req, res: Response<Chat | string, { user: UserData }>) => {
   let chat;
 
-  console.log(res.locals.user.matches.map(m => m.chat_id), req.params.id);
-
-  if (!res.locals.user.matches.map(m => m.chat_id).includes(new ObjectId(req.params.id)) || (chat = await collection.findOne<Chat>({ "_id": new ObjectId(req.params.id) })) === null) {
+  if (!res.locals.user.matches.map(m => m.chat_id.toHexString()).includes(req.params.id) || (chat = await collection.findOne<Chat>({ "_id": new ObjectId(req.params.id) })) === null) {
     res.status(404).send("Chat not found");
     return;
   }
@@ -45,6 +43,7 @@ chats.get("/:id", async (req, res: Response<Chat | string, { user: UserData }>) 
 });
 
 io.on("connection", (socket) => {
+  console.log("connected");
   socket.on("join", async (id: string) => {
     const uid = await auth.verifyIdToken(socket.handshake.auth["id_token"] as string).then(async (decodedToken) => {
       return decodedToken.uid;
@@ -53,7 +52,7 @@ io.on("connection", (socket) => {
       return null;
     });
 
-    if (!uid || !(await database.collection<UserData>("users").findOne({ "firebase_id": uid }))?.matches.map(m => m.chat_id).includes(new ObjectId(id))) {
+    if (!uid || !(await database.collection<UserData>("users").findOne({ "firebase_id": uid }))?.matches.map(m => m.chat_id.toHexString()).includes(id)) {
       socket.emit("error", "Unauthorized");
       return;
     }
@@ -74,5 +73,6 @@ io.on("connection", (socket) => {
     io.to(socket.data.id).emit("message", message);
   });
 });
+io.listen(81);
 
 export default chats;

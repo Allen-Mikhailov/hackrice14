@@ -26,10 +26,9 @@ function SignOut(e: React.MouseEvent)
 
 function SignedIn()
 {
-  const [user, setUser] = useState<User|null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    
     auth.onAuthStateChanged(user => {
       setUser(user);
     })
