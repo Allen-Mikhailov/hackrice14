@@ -60,6 +60,8 @@ async function getChat(user: User, chat_id?: string): Promise<Chat | null>
 
     const json = await (response.json())
 
+    console.log("chat", json)
+
     return json
 }
 

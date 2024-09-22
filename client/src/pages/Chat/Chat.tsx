@@ -12,37 +12,45 @@ function Chat() {
   const [chat, setChat] = useState<ChatType | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const id = useParams().id;
-
-  console.log(id);
+  const send = useRef((message: Message) => { console.log(message.message)})
 
   const nav = useNavigate();
 
   useEffect(() => {
-    (async () => {
-      if (!auth.currentUser) {
-        //nav("/");
+    auth.onAuthStateChanged(async (user) => {
+      if (!user) {
+        nav("/");
         return;
       }
 
-      setChat(await getChat(auth.currentUser, id));
-      setMessages(chat?.messages || []);
+      const _chat = await getChat(user, id)
 
-      if (!chat) {
-        //nav("/");
+      setChat(_chat);
+
+      if (!_chat) {
+        nav("/");
         return;
       }
 
-      const socket = io(`${getStartingPoint()}/chats/socket.io`, {
+      setMessages(_chat.messages || []);
+
+      const socket = io(`${getStartingPoint()}/socket.io`, {
         auth: {
           token: auth.currentUser?.getIdToken(),
         },
       });
       socket.connect();
-      socket.on("connect", async () => {
-        socket.emit("join", chat?._id);
+      socket.on("connect", () => {
+        socket.emit("join", _chat._id);
       });
-    })();
-  }, [id, chat?.messages]);
+      socket.on("message", (message: Message) => {
+        setMessages([...messages, message]);
+      });
+      send.current = (message: Message) => {
+        socket.emit("message", message);
+      }
+    });
+  }, []);
 
   return (
     <div>
@@ -63,19 +71,21 @@ function Chat() {
 
           if (input.current === null || !auth.currentUser?.displayName) return;
 
+          const message = {
+            timestamp: Math.floor(Date.now() / 1000),
+            user: auth.currentUser?.displayName,
+            message: input.current.value,
+          };
+
           setMessages([
             ...messages,
-            {
-              timestamp: Math.floor(Date.now() / 1000),
-              user: auth.currentUser?.displayName,
-              message: input.current.value,
-            },
+            message
           ]);
+
+          send.current(message);
           input.current.value = "";
         }}
-      >
-        send
-      </button>
+      >send</button>
     </div>
   );
 }
