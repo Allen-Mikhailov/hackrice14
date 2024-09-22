@@ -8,7 +8,8 @@ import { auth } from "../firebase";
 
 const collection = database.collection<Chat>("chats");
 const chats = Router();
-const io = new Server({
+
+export const live = new Server({
   path: "/socket.io",
   cors: {
     origin: "*"
@@ -45,7 +46,7 @@ chats.get("/:id", async (req, res: Response<Chat | string, { user: UserData }>) 
   res.json(chat);
 });
 
-io.on("connection", (socket) => {
+live.on("connection", (socket) => {
   console.log("connected");
   socket.on("join", async (id: string) => {
     const uid = await auth.verifyIdToken(socket.handshake.auth.token as string).then(async (decodedToken) => {
@@ -74,9 +75,8 @@ io.on("connection", (socket) => {
   socket.on("message", (message: Message) => {
     console.log("message", message);
     collection.updateOne({ "_id": new ObjectId(socket.data.id as string) }, { "$push": { "messages": message } });
-    io.to(socket.data.id).emit("message", message);
+    live.to(socket.data.id).emit("message", message);
   });
 });
-io.listen(8081);
 
 export default chats;

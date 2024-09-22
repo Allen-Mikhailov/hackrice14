@@ -11,7 +11,7 @@ function getWS()
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
         return "ws://localhost:8081"
     else 
-        return "ws://motivibe.live:8081"
+        return "wss://motivibe.live"
 }
 
 function Chat() {
@@ -36,7 +36,7 @@ function Chat() {
         return;
       }
 
-      setMessages(chat.messages || []);
+      setMessages(chat.messages);
       const token = await user.getIdToken();
 
       const socket = io(getWS(), {
@@ -48,6 +48,7 @@ function Chat() {
       });
       socket.on("message", (message: Message) => {
         if (message.user == user.displayName) {return;}
+        console.log(messages);
         const new_messages = [...JSON.parse(JSON.stringify(messages)), message]
         setMessages(new_messages);
       });
