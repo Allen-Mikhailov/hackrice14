@@ -46,7 +46,7 @@ function Chat() {
       socket.on("connect", () => {
         socket.emit("join", chat._id);
       });
-      socket.on("message", (message: Message) => {
+      socket.on("message", function (message: Message) {
         if (message.user === user.displayName) {return;}
         console.log("raaaa", messages);
         const new_messages = [...JSON.parse(JSON.stringify(messages)), message]
