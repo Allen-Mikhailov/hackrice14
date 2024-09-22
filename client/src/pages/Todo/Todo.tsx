@@ -45,6 +45,9 @@ function TodoPage()
         <h3 style={{ fontSize: "40px", fontWeight: "bold" }}>Todo</h3>
         <br></br>
         <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
         <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label>Due Date</Form.Label>
