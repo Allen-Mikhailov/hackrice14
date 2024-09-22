@@ -8,6 +8,7 @@ function Home()
             </div>
         <h4>AI-Driven Academic Social Networking to Combat Procrastination.</h4>
     <br></br>
+    <br></br>
     <hr></hr>
     <br></br>
     <div style={{ marginTop: "50px" }}></div>
