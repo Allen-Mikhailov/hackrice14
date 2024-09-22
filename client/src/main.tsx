@@ -30,6 +30,9 @@ function App()
           <Route path="/chat/:id" element={<Chat/>} />
           <Route path="/chatSelect" element={<ChatSelect/>} />
         </Routes>
+        <div className='footer'>
+          Created by Allen Mikhailov, Justin, Kevin Bao, and Clay Goldsmith for HackRice 14.
+        </div>
       </div>
     </BrowserRouter>
   </>
