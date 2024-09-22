@@ -3,8 +3,9 @@ import { UserData } from "server/src/middleware/auth"
 import { user_data_state } from "../../modules/states"
 import { useEffect, useState, useRef } from "react"
 import { User } from "firebase/auth"
-
+import Button from 'react-bootstrap/Button'
 import ListGroup from 'react-bootstrap/ListGroup';
+import Form from 'react-bootstrap/Form'
 
 function Username(props: {username: string})
 {
@@ -42,6 +43,9 @@ function NotSignedIn()
     </div>
 }
 
+function EditBio() {
+
+}
 function InfoWindow()
 {
     const [user, setUser] = useState<User|null>()
@@ -54,14 +58,16 @@ function InfoWindow()
     }, [])
 
     return (user!=null?<div>
-        
-            <div className="Table">
-                <Username username={user.displayName || "Error"}/>
-            </div>
-            <div className="Table">
-                <Bio bio={userData?userData.bio:"Loading Bio"} />
-            </div>
-            
+            <div>
+                <div className="table">
+                    <h1><Username username={user.displayName || "Error"}/></h1>
+                </div>
+                <div className="table">
+                    <h4><Bio bio={userData?userData.bio:"Loading Bio"} /></h4>
+                </div>
+                <Button variant="primary" onClick={EditBio}>Edit Bio</Button>{' '}
+            </div>    
+
         
     </div>:<NotSignedIn/>)
 }
