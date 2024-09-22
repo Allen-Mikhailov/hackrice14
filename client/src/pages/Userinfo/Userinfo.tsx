@@ -61,7 +61,7 @@ function Bio(props: {bio: string})
     }
 
     return <div>
-        <h3>Biography</h3>
+        
         <textarea ref={textboxRef} className="biotextarea" disabled={!editing} value={localBio} onChange={textbox_change}>
             
         </textarea>
@@ -111,7 +111,7 @@ function MatchingSignup()
 
     return <div>
         {userData && userData.open_to_wave?<div>
-            <h4>You are signed up for the matching next wave</h4>
+            <h4>You are signed up for the matching next wave!</h4>
             <Button variant="danger" onClick={cancel_signup}>Cancel Signup</Button>
         </div>:<div>
             <Button variant="success" onClick={request_signup}>Signup for matching wave</Button>
@@ -132,7 +132,7 @@ function Userinfo()
 
     return (user!=null?<div>
         
-        <h1 style={{fontSize:40, color:"rgb(173, 182, 255)"}}>{user.displayName || "Error"}</h1>
+        <h1 style={{ fontSize: 40, color: "#FCE7A2", fontWeight: "bold", textTransform: "uppercase" }}>{user.displayName || "Error"}</h1>
         <hr></hr>
         {userData?<Bio bio={userData?userData.bio:""} />:"Loading Bio"}
         {userData && <MatchingSignup/>}

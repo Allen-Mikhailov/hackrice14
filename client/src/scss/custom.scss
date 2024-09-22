@@ -43,13 +43,13 @@ body {
 }
 
 .cool-text {
-    background-image: linear-gradient(rgb(0, 255, 191), blue);
+    background-image: linear-gradient(#B3E3FA,#A9D3E8);
     color: transparent;
     background-clip: text;
 }
 
 .cool-title{
-    background-image: linear-gradient(rgb(0, 255, 191), blue);
+    background-image: linear-gradient(#94f4df,#64a1c0);
     color: transparent;
     background-clip: text;
     font-size: 600%
@@ -78,5 +78,13 @@ body {
 .biotextarea {
     background-color: rgba(50,50,50,.3);
     font-family:Courier;
+    line-height:2;
 }
 
+.btn-primary {
+    --bs-btn-bg: #00000000;
+}
+
+button {
+    margin:5px
+}

@@ -5,14 +5,38 @@ import { io } from "socket.io-client";
 import { useNavigate, useParams } from "react-router-dom";
 import { getChat } from "../../modules/backend_functions";
 import { auth } from "../../modules/firebase";
+import { User } from "firebase/auth";
+
+function getWS()
+{
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+        return "ws://localhost:8081"
+    else 
+        return "wss://motivibe.live"
+}
 
 function Chat() {
   const input = useRef<HTMLInputElement>(null);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [addMessage, setAddMessage] = useState<Message|null>(null)
   const id = useParams().id;
   const send = useRef((message: Message) => { console.log(message.message)})
-
   const nav = useNavigate();
+
+  function recieve_message(message: Message, user: User) {
+    if (message.user === user.displayName) {return;}
+    console.log("raaaa", messages);
+    // const new_messages = [...messages, message];
+    setAddMessage(message)
+    // setMessages(new_messages);
+  }
+
+  useEffect(() => {
+    if (addMessage != null)
+    {
+      setMessages([...messages, addMessage]);
+    }
+  }, [addMessage])
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
@@ -28,25 +52,18 @@ function Chat() {
         return;
       }
 
-      setMessages(chat.messages || []);
+      setMessages(chat.messages);
       const token = await user.getIdToken();
 
-      const socket = io(`ws://localhost:8081`, {
+      const socket = io(getWS(), {
         auth: { token },
       });
       socket.connect();
       socket.on("connect", () => {
         socket.emit("join", chat._id);
       });
-      socket.on("message", (message: Message) => {
-        if (message.user == user.displayName) {return;}
-        const new_messages = [...JSON.parse(JSON.stringify(messages)), message]
-        console.log("wdawtf", messages, new_messages)
-        setMessages(new_messages);
-      });
-      send.current = (message: Message) => {
-        socket.emit("message", message);
-      }
+      socket.on("message", (message) => recieve_message(message, user));
+      send.current = (message: Message) => socket.emit("message", message);
     });
   }, []);
 
@@ -62,7 +79,7 @@ function Chat() {
       message: input.current.value,
     };
 
-    const new_messages = [...JSON.parse(JSON.stringify(messages)), message]
+    const new_messages = [...messages, message]
     console.log("wdawtf", messages, new_messages)
 
     setMessages(new_messages);
@@ -84,9 +101,7 @@ function Chat() {
         ))}
       </div>
       <input ref={input} />
-      <button
-        onClick={send_message}
-      >send</button>
+      <button onClick={send_message}>send</button>
     </div>
   );
 }
