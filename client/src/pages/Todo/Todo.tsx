@@ -68,10 +68,12 @@ function TodoPage()
             </Form.Group>
         </Form>
         <Button variant="success" onClick={addTask}>Add Task</Button>
+        <br />
+        <br />
         {todoList.map((todo, index) => {
             return <div key={index}>
-                {todo.title}
-                {todo.completed ? "Done" : "Not Done"}
+                {todo.title}&nbsp;&nbsp;&nbsp;&nbsp;
+                {todo.completed ? "Done" : "Not Done"}&nbsp;&nbsp;
                 <Button onClick={() => done(index)}>complete</Button>
             </div>
         })}
