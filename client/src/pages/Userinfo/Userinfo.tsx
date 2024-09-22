@@ -1,5 +1,4 @@
 import { auth } from "../../modules/firebase"
-import { UserData } from "server/src/middleware/auth"
 import { user_data_state } from "../../modules/states"
 import React, { useEffect, useState, useRef } from "react"
 import { User } from "firebase/auth"
@@ -10,7 +9,7 @@ import { setProfileBio } from "../../modules/backend_functions"
 
 function Bio(props: {bio: string})
 {
-    let {bio} = props
+    const {bio} = props
     const [editing, setEditing] = useState(false)
     const [localBio, setLocalBio] = useState("")
     const [userData, setUserData] = user_data_state.useState()
