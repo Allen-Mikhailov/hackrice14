@@ -11,7 +11,7 @@ import Userinfo from './pages/Userinfo/Userinfo'
 import Todo from './pages/Todo/Todo.tsx'
 import Chat from './pages/Chat/Chat'
 import ChatSelect from './pages/ChatSelect/ChatSelect'
-import Match from './pages/Match/Match.ts'
+import Match from './pages/Match/Match'
 
 // Import our custom CSS
 import './scss/styles.scss'
