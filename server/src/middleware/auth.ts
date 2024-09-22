@@ -11,6 +11,12 @@ export type Match = {
   display_name: string
 }
 
+export type Todo = {
+  title: string,
+  timestamp: number,
+  completed: boolean
+}
+
 export type UserData = {
   firebase_id: string,
   display_name: string,
@@ -18,6 +24,7 @@ export type UserData = {
   matches: Match[],
   bio: string,
   skills: number[],
+  todo_list: Todo[]
 }
 
 export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: string }>, res: Response<{}, { user: UserData | null }>, next: NextFunction) => {
@@ -51,7 +58,8 @@ export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: strin
       open_to_wave: true,
       matches: [],
       bio: "",
-      skills: []
+      skills: [],
+      todo_list: []
     }
 
     await users.insertOne(user);
