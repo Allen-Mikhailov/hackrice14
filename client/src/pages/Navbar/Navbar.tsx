@@ -37,7 +37,7 @@ function SignedIn()
 
   //<div style={{display: "flex", justifyContent: "center"}}>
 
-  return (user && <Nav className="me-auto" style={{display: "flex", justifyContent: "center", 
+  return (user && <Nav className="me-l" style={{display: "flex", justifyContent: "center", 
   flexDirection: "row", alignItems: "flex-end", alignSelf: "flex-end"}}>
     <Navbar.Text>{"Hello, "+user.displayName}</Navbar.Text>
     <span style={{marginLeft: "25px"}}></span>
