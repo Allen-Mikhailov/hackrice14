@@ -17,7 +17,7 @@ function getWS()
 
 function Chat() {
   const input = useRef<HTMLInputElement>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([{timestamp: 1726985064, user: 'Justin Lopato', message: 'AAAAAAA'}]);
   const id = useParams().id;
   const send = useRef((message: Message) => { console.log(message.message)})
   const nav = useNavigate();
