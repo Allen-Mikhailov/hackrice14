@@ -47,8 +47,8 @@ function Chat() {
         socket.emit("join", chat._id);
       });
       socket.on("message", (message: Message) => {
-        if (message.user == user.displayName) {return;}
-        console.log(messages);
+        if (message.user === user.displayName) {return;}
+        console.log("raaaa", messages);
         const new_messages = [...JSON.parse(JSON.stringify(messages)), message]
         setMessages(new_messages);
       });
