@@ -24,7 +24,7 @@ function ListChats() {
 function ChatSelect() {
   return (
     <div>
-      <h1>Active Chats:</h1>
+      <h2>Active Chats:</h2>
       <ListChats />
     </div>
   );
