@@ -29,7 +29,7 @@ async function setProfileBio(user: User, new_bio: string) {
     const starting_point = getStartingPoint();
     const url = `${starting_point}/profile/me?id_token=${encodeURIComponent(await user.getIdToken(true))}`
     await fetch(url, {
-        method: "post",
+        method: "POST",
         body: JSON.stringify({
             "bio": new_bio
         })
@@ -40,7 +40,7 @@ async function getChat(chat_id?: string): Promise<Chat | null>
 {
     if (!chat_id)
         return null
-    
+
     const starting_point = getStartingPoint();
     const response = await fetch(`${starting_point}/chats/${chat_id}?id_token=${encodeURIComponent(await auth.currentUser!.getIdToken(true))}`)
     if (!response.ok)
