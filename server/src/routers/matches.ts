@@ -9,6 +9,7 @@ const matches = Router();
 matches.get("/all", async (_req, res: Response<{ all: boolean }, { user: UserData }>) => {
   let all = false;
   while ((await users.countDocuments({open_to_wave: true})) > 1) {
+    console.log(await users.find({open_to_wave: true}));
     all = true;
     let user1 = await users.findOne<UserData>({open_to_wave: true});
 
@@ -41,7 +42,7 @@ async function makeMatch(user1_id: string, user2_id: string) {
     return;
   }
 
-  let chat_id = (await chats.insertOne({ users: [user1, user2], messages: [] })).insertedId;
+  let chat_id = (await chats.insertOne({ users: [user1_id, user2_id], messages: [] })).insertedId;
   await users.updateOne({ firebase_id: user1_id }, { "$push": { matches: { other_user_id: user2_id, chat_id, display_name: user2.display_name } } });
   await users.updateOne({ firebase_id: user2_id }, { "$push": { matches: { other_user_id: user1_id, chat_id, display_name: user1.display_name } } });
   await users.updateOne({ firebase_id: user1_id }, { "$set": { open_to_wave: false } });
