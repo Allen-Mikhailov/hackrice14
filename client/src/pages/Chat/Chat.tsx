@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./Chat.css";
-import { Chat as ChatType, Message } from "server/src/routers/chats";
+import { Message } from "server/src/routers/chats";
 import { io } from "socket.io-client";
-import { getStartingPoint } from "../../modules/backend_functions";
 import { useNavigate, useParams } from "react-router-dom";
 import { getChat } from "../../modules/backend_functions";
 import { auth } from "../../modules/firebase";
@@ -55,8 +54,8 @@ function Chat() {
         <h1>Chat Page</h1>
       </div>
       <div>
-        {messages.map((message) => (
-          <p key={message.timestamp}>
+        {messages.map((message, index) => (
+          <p key={index}>
             {message.user}: {message.message}
           </p>
         ))}

@@ -68,7 +68,7 @@ function BaseNavbar() {
           }} >
       <Container >
         <Navbar.Brand as={Link} to="">
-          <img src="src/assets/motivibes.png" alt="logo" style={{width:40,height:40,marginRight:20}}></img>
+          <img src="/motivibes.png" alt="logo" style={{width:40,height:40,marginRight:20}}></img>
           
           Moti-Vibes
           </Navbar.Brand>
