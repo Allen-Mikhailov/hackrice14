@@ -29,34 +29,32 @@ function Chat() {
     setMessages(new_messages);
   }
 
-  useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      if (!user) {
-        nav("/");
-        return;
-      }
+  auth.onAuthStateChanged(async (user) => {
+    if (!user) {
+      nav("/");
+      return;
+    }
 
-      const chat = await getChat(user, id);
+    const chat = await getChat(user, id);
 
-      if (!chat) {
-        nav("/");
-        return;
-      }
+    if (!chat) {
+      nav("/");
+      return;
+    }
 
-      setMessages(chat.messages);
-      const token = await user.getIdToken();
+    setMessages(chat.messages);
+    const token = await user.getIdToken();
 
-      const socket = io(getWS(), {
-        auth: { token },
-      });
-      socket.connect();
-      socket.on("connect", () => {
-        socket.emit("join", chat._id);
-      });
-      socket.on("message", (message) => recieve_message(message, user));
-      send.current = (message: Message) => socket.emit("message", message);
+    const socket = io(getWS(), {
+      auth: { token },
     });
-  }, []);
+    socket.connect();
+    socket.on("connect", () => {
+      socket.emit("join", chat._id);
+    });
+    socket.on("message", (message) => recieve_message(message, user));
+    send.current = (message: Message) => socket.emit("message", message);
+  });
 
   function send_message(e: React.MouseEvent)
   {
