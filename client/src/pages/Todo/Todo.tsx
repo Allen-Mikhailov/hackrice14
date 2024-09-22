@@ -48,7 +48,7 @@ function TodoPage()
     }
 
     return <div>
-        <h3 style={{ fontSize: "40px", fontWeight: "bold" }}>To-do:</h3>
+        <h3 style={{ fontSize: "40px", fontWeight: "bold", color: "white" }}>To-do:</h3>
         <br></br>
         <br></br>
         <br></br>
