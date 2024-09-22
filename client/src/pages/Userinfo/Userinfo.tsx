@@ -133,9 +133,9 @@ function Userinfo()
     }, [])
 
     return (user!=null?<div>
-        <div className="table">
-            <h1>{user.displayName || "Error"}</h1>
-        </div>
+        
+        <h1 style={{fontSize:40, color:"rgb(173, 182, 255)"}}>{user.displayName || "Error"}</h1>
+        <hr></hr>
         {userData?<Bio bio={userData?userData.bio:""} />:"Loading Bio"}
         {userData && <MatchingSignup/>}
         

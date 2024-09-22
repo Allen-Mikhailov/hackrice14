@@ -34,6 +34,8 @@ chats.get("/", async (_req, res: Response<Chat[], { user: UserData }>) => {
 chats.get("/:id", async (req, res: Response<Chat | string, { user: UserData }>) => {
   let chat;
 
+  console.log(req.params.id);
+
   if (!res.locals.user.matches.map(m => m.chat_id).includes(req.params.id) || (chat = await collection.findOne<Chat>({ "id": req.params.id })) === null) {
     res.status(404).send("Chat not found");
     return;
