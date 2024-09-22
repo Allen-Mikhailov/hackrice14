@@ -22,11 +22,31 @@ function Bio(props: {bio: string})
 
     const textboxRef = useRef(null);
 
+    function save_bio()
+    {
+        setEditing(false)
+    }
+
+    function cancel_edit()
+    {
+        setEditing(false)
+    }
+
+    function start_edit()
+    {
+        setEditing(true)
+    }
+
     return <div>
-        {editing?<textarea ref={textboxRef}>
+        <textarea ref={textboxRef}>
             
-        </textarea>:<div>
-            {bio}
+        </textarea>
+        <br/>
+        {editing?<div>
+            <Button variant="primary" onClick={save_bio}>Save Bio</Button>
+            <Button variant="danger" onClick={cancel_edit}>Cancel</Button>
+        </div>:<div>
+            <Button variant="primary" onClick={start_edit}>Edit Bio</Button>
         </div>}
         
     </div>
@@ -43,9 +63,6 @@ function NotSignedIn()
     </div>
 }
 
-function EditBio() {
-
-}
 function InfoWindow()
 {
     const [user, setUser] = useState<User|null>()
@@ -62,10 +79,7 @@ function InfoWindow()
                 <div className="table">
                     <h1><Username username={user.displayName || "Error"}/></h1>
                 </div>
-                <div className="table">
-                    <h4><Bio bio={userData?userData.bio:"Loading Bio"} /></h4>
-                </div>
-                <Button variant="primary" onClick={EditBio}>Edit Bio</Button>{' '}
+                {userData?<Bio bio={userData?userData.bio:""} />:"Loading Bio"}
             </div>    
 
         
