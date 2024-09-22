@@ -67,7 +67,7 @@ function BaseNavbar() {
           backgroundColor:"rgba(0,0,0,0)"
           }} >
       <Container >
-        <Navbar.Brand as={Link} to="">
+        <Navbar.Brand as={Link} to="" style={{ fontWeight: "bold" }}>
           <img src="/motivibes.png" alt="logo" style={{width:40,height:40,marginRight:20}}></img>
           
           Moti-Vibes
@@ -77,7 +77,7 @@ function BaseNavbar() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="userinfo">User Profile</Nav.Link>
             <Nav.Link as={Link} to="todo">Todo</Nav.Link>
-            <Nav.Link as={Link} to="chatSelect">Chats</Nav.Link>
+            <Nav.Link as={Link} to="matches">Matches</Nav.Link>
           </Nav>
           {user?<SignedIn/>:<SignedOut/>}
         </Navbar.Collapse>

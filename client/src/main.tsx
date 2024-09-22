@@ -45,7 +45,7 @@ function App()
           <Route path="/userinfo" element={<Userinfo/>} />
           <Route path="/todo" element={<Todo/>} />
           <Route path="/chat/:id" element={<Chat/>} />
-          <Route path="/chatSelect" element={<ChatSelect/>} />
+          <Route path="/matches" element={<ChatSelect/>} />
         </Routes>
         
       </div>
