@@ -1,28 +1,21 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import './Navbar.css'
 import React, { useState, useEffect } from 'react';
 import { User } from 'firebase/auth';
 
-import { Form, Row, Col, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 import {  } from '../../modules/states';
 
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { auth, google_auth, signInWithPopup, signOut } from '../../modules/firebase';
-
-
-
-import {
-  BrowserRouter, Routes, Route, Router
-} from 'react-router-dom';
 
 async function SignIn(e: React.MouseEvent)
 {
   e.preventDefault()
-  const result = await signInWithPopup(auth, google_auth);
+  await signInWithPopup(auth, google_auth);
 }
 
 function SignOut(e: React.MouseEvent)
@@ -71,7 +64,7 @@ function BaseNavbar() {
     <>
       <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand href="#home">Moti-Vibes</Navbar.Brand>
+        <Navbar.Brand as={Link} to="">Moti-Vibes</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
