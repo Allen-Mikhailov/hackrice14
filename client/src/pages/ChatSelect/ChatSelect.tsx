@@ -10,7 +10,7 @@ function ListChats()
         <ListGroup>
             {userData && userData.matches.map((match) => {
                 return <ListGroup.Item>
-                    <a href={"/chat/"+match.chat_id}>{match.other_user_id}</a>
+                    <a href={"/chat/"+match.chat_id}>{match.display_name}</a>
                 </ListGroup.Item>
             })}
         </ListGroup>
