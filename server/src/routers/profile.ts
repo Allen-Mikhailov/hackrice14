@@ -14,7 +14,7 @@ profile.get("/me", (_req, res: Response<{}, { user: UserData }>) => {
 profile.post("/me", async (req: Request<{}, {}, { bio: string }>, res: Response<{}, { user: UserData }>) => {
   let { bio } = req.body;
 
-  console.log(bio);
+  console.log(req);
 
   if (bio === undefined) {
     res.status(400).send("Missing bio");
