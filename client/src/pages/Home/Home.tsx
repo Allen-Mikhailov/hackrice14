@@ -6,18 +6,18 @@ function Home()
         <div className="cool-title">
             Moti-Vibes.
             </div>
-        <h4>Crowdsourced Academic Encouragement to Combat Procrastination.</h4>
+        <h4>AI-Driven Academic Social Networking to Combat Procrastination.</h4>
     <br></br>
     <hr></hr>
     <br></br>
     Designed 
-    <span style={{color: "#8271ff"}}> for college students, </span> 
-    by college students. 
+    <span style={{color: "#8271ff"}}> for college students, by college students.  </span> 
+    
 
     <br></br>
-    With a matching algorithm powered by Generative AI, 
-    <span style={{color: "rgb(6, 115, 232)"}}> Moti-Vibes </span> 
-    helps you 
+    With a matching algorithm powered by 
+    <span style={{color:"#FCE7A2"}}> Generative AI, </span> 
+    Moti-Vibes helps you 
     be held accountable for your terrible work ethic.
 
     </div>
