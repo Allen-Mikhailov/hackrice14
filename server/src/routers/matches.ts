@@ -25,8 +25,8 @@ matches.post("/add", async (req: Request<{}, {}, {user1_id: string, user2_id: st
   }
 
   let chat_id = (await chats.insertOne({ users: [user1, user2], messages: [] })).insertedId;
-  users.updateOne({ firebase_id: user1 }, { "$push": { matches: { other_user_id: user2_id, chat_id, user_name: user2.display_name } } });
-  users.updateOne({ firebase_id: user2 }, { "$push": { matches: { other_user_id: user1_id, chat_id, user_name: user1.display_name } } });
+  users.updateOne({ firebase_id: user1 }, { "$push": { matches: { other_user_id: user2_id, chat_id, display_name: user2.display_name } } });
+  users.updateOne({ firebase_id: user2 }, { "$push": { matches: { other_user_id: user1_id, chat_id, display_name: user1.display_name } } });
   res.json(res.locals.user);
 });
 
