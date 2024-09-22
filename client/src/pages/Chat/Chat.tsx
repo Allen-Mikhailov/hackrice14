@@ -30,7 +30,6 @@ function Chat() {
 
       setMessages(chat.messages || []);
       const token = await user.getIdToken();
-      console.log(token);
 
       const socket = io(`ws://localhost:8081`, {
         auth: { token },

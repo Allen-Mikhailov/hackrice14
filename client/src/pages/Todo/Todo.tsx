@@ -1,12 +1,13 @@
 import "./Todo.css"
+import { user_data_state } from "../../modules/states"
 
 function Todo()
 {
+    const [userData, setUserData] = user_data_state.useState()
+
     return <div>
-        <div>
-            <h1>Track your Assignments Here</h1>
-        </div>
-        <h4>Insert To-Do list here.</h4>
+        <h3>Todo</h3>
+        {/* {userData && userData} */}
     </div>
 }
 
