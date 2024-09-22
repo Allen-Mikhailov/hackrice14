@@ -70,7 +70,7 @@ async function requestMatch(user: User)
     const starting_point = getStartingPoint();
     const url = `${starting_point}/matches/find?id_token=${encodeURIComponent(await user.getIdToken(true))}`
     const res = await fetch(url);
-    return res;
+    return res.json();
 }
 
 export { getProfile, setProfileBio, getStartingPoint, getChat, setProfileSignupStatus, requestMatch }
