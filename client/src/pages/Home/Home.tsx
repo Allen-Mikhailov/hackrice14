@@ -9,7 +9,9 @@ function Home()
         <h4>AI-Driven Academic Social Networking to Combat Procrastination.</h4>
     <br></br>
     <br></br>
+    <br></br>
     <hr></hr>
+    <br></br>
     <br></br>
     <br></br>
     Designed 
