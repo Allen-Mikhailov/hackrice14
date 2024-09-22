@@ -16,6 +16,7 @@ h1 {
 
 body {
     text-align: center;
+    color:rgb(219, 255, 247);
 }
 
 .menu {
@@ -64,12 +65,12 @@ body {
 }
 
 .page-container {
-    background-color: rgba(0,0,0,.4);
+    // background-color: rgba(0,0,0,.2);
     width:75%;
     margin:auto;
 }
 
 .bg-body-tertiary {
-    background-color: rgba(0,0,0,0);
+    // background-color: rgba(0,0,0,0);
     --bs-bg-opacity: 0;
 }

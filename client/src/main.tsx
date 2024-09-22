@@ -8,7 +8,7 @@ import BackEndConnection from './BackEndConnection.tsx'
 
 import Home from './pages/Home/Home.tsx'
 import Userinfo from './pages/Userinfo/Userinfo'
-import Catalog from './pages/Catalog/Catalog'
+import Catalog from './pages/Todo/Todo.tsx'
 import Chat from './pages/Chat/Chat'
 import ChatSelect from './pages/ChatSelect/ChatSelect'
 
