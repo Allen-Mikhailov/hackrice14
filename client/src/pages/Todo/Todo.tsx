@@ -7,7 +7,7 @@ function Todo()
 
     return <div>
         <h3>Todo</h3>
-        {/* {userData && userData} */}
+        {/* {userData && userData.todo_list.map()} */}
     </div>
 }
 
