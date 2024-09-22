@@ -16,7 +16,7 @@ function Bio(props: {bio: string})
     const [userData, setUserData] = user_data_state.useState()
 
     useEffect(() => {
-
+        setLocalBio(bio)
     }, [bio])
 
     const textboxRef = useRef(null);
@@ -85,6 +85,30 @@ function NotSignedIn()
         </h1>
         <h2>Looks like you're not signed in...</h2>
         You need to sign in.
+    </div>
+}
+
+function MatchingSignup()
+{
+    const [userData, setUserData] = user_data_state.useState()
+
+    function cancel_signup()
+    {
+        
+    }
+
+    function request_signup()
+    {
+
+    }
+
+    return <div>
+        {userData && userData.open_to_wave?<div>
+            <h4>You are signed up for the next wave</h4>
+            <Button variant="danger" onClick={cancel_signup}>Cancel Signup</Button>
+        </div>:<div>
+            <Button variant="success" onClick={request_signup}>Cancel Signup</Button>
+        </div>}
     </div>
 }
 
