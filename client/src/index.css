@@ -32,6 +32,7 @@ body {
   margin: 0;
   display: flex;
   overflow-y: scroll;
+  background-image:'./assets/wallpaper.jpg'
 }
 
 #root {
