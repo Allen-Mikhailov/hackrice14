@@ -23,7 +23,7 @@ function App()
     <BrowserRouter>
       <BackEndConnection/>
       <BaseNavbar></BaseNavbar>
-      <div style={{padding: 50}}>
+      <div className='page-container'>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/userinfo" element={<Userinfo/>} />

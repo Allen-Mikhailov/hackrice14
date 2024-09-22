@@ -7,6 +7,8 @@ import Button from 'react-bootstrap/Button'
 import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form'
 
+import "./Userinfo.css"
+
 function Username(props: {username: string})
 {
     let {username} = props
@@ -38,7 +40,8 @@ function Bio(props: {bio: string})
     }
 
     return <div>
-        <textarea ref={textboxRef}>
+        <h3>Biography</h3>
+        <textarea ref={textboxRef} className="biotextarea">
             
         </textarea>
         <br/>
@@ -75,12 +78,10 @@ function InfoWindow()
     }, [])
 
     return (user!=null?<div>
-            <div>
-                <div className="table">
-                    <h1><Username username={user.displayName || "Error"}/></h1>
-                </div>
-                {userData?<Bio bio={userData?userData.bio:""} />:"Loading Bio"}
-            </div>    
+        <div className="table">
+            <h1>{user.displayName || "Error"}</h1>
+        </div>
+        {userData?<Bio bio={userData?userData.bio:""} />:"Loading Bio"}
 
         
     </div>:<NotSignedIn/>)
