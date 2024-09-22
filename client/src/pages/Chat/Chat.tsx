@@ -11,7 +11,7 @@ function getWS()
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
         return "ws://localhost:8081"
     else 
-        return "ws://motivibe.live:8081"
+        return "wss://motivibe.live"
 }
 
 function Chat() {
