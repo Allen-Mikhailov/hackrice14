@@ -1,16 +1,18 @@
 import { Request, Response, NextFunction } from "express";
 import { database } from "../mongodb";
 import { auth } from "../firebase";
+import { ObjectId } from "mongodb";
 
 const users = database.collection<UserData>("users");
 
 export type Match = {
   other_user_id: string,
-  chat_id: string
+  chat_id: ObjectId
 }
 
 export type UserData = {
   firebase_id: string,
+  display_name: string,
   open_to_wave: boolean,
   matches: Match[],
   bio: string,
@@ -35,8 +37,16 @@ export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: strin
   let user = await users.findOne<UserData>({ "firebase_id": uid });
 
   if (!user) {
+    const firebaseUser = await auth.getUser(uid);
+
+    if (!firebaseUser) {
+      res.status(404).send("User not found");
+      return;
+    }
+
     user = {
       firebase_id: uid,
+      display_name: firebaseUser.displayName || firebaseUser.email || "Loser",
       open_to_wave: true,
       matches: [],
       bio: "",

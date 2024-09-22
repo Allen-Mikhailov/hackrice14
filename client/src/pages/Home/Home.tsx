@@ -8,6 +8,8 @@ function Home()
             </div>
         <h4>Crowdsourced Academic Encouragement to Combat Procrastination.</h4>
     <br></br>
+    <hr></hr>
+    <br></br>
     Designed 
     <span style={{color: "#8271ff"}}> for college students, </span> 
     by college students. 

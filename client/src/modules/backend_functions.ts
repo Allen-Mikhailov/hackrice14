@@ -1,6 +1,5 @@
 import { User } from "firebase/auth";
 import { UserData } from "server/src/middleware/auth";
-import { auth } from "./firebase";
 import { Chat } from "server/src/routers/chats";
 
 function getStartingPoint()
@@ -49,17 +48,18 @@ async function setProfileSignupStatus(user: User, open: boolean) {
     })
 }
 
-async function getChat(chat_id?: string): Promise<Chat | null>
+async function getChat(user: User, chat_id?: string): Promise<Chat | null>
 {
-    if (!chat_id || !auth.currentUser)
+    if (!chat_id || !user)
         return null
 
     const starting_point = getStartingPoint();
-    const response = await fetch(`${starting_point}/chats/${chat_id}?id_token=${encodeURIComponent(await auth.currentUser.getIdToken(true))}`)
+    const response = await fetch(`${starting_point}/chats/${chat_id}?id_token=${encodeURIComponent(await user.getIdToken(true))}`)
     if (!response.ok)
         return null
 
     const json = await (response.json())
+
     return json
 }
 
