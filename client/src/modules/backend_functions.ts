@@ -65,4 +65,12 @@ async function getChat(user: User, chat_id?: string): Promise<Chat | null>
     return json
 }
 
-export { getProfile, setProfileBio, getStartingPoint, getChat, setProfileSignupStatus }
+async function requestMatch(user: User)
+{
+    const starting_point = getStartingPoint();
+    const url = `${starting_point}/matches/find?id_token=${encodeURIComponent(await user.getIdToken(true))}`
+    const res = await fetch(url);
+    return res.json();
+}
+
+export { getProfile, setProfileBio, getStartingPoint, getChat, setProfileSignupStatus, requestMatch }
