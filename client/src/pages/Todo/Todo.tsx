@@ -72,7 +72,7 @@ function TodoPage()
             return <div key={index}>
                 {todo.title}
                 {todo.completed ? "Done" : "Not Done"}
-                <Button onClick={() => done(index)}></Button>
+                <Button onClick={() => done(index)}>complete</Button>
             </div>
         })}
     </div>
