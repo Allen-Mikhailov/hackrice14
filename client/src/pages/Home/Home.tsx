@@ -11,7 +11,7 @@ function Home()
     <br></br>
     <hr></hr>
     <br></br>
-    <div style={{ marginTop: "50px" }}></div>
+    <br></br>
     Designed 
     <span style={{color: "#8271ff"}}> for college students, by college students.  </span> 
     
