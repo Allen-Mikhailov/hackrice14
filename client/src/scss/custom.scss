@@ -38,3 +38,28 @@ body {
     background-color: rgb(17, 17, 17);
     color:rgb(206, 250, 209)
 }
+
+#content {
+    text-align: center;
+    padding: 20px;
+}
+
+.userinfo #page-heading {
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+}
+
+.userinfo #page-body {
+    font-size: 20px;
+    color: rgb(173, 216, 230);
+}
+
+.chat #page-heading {
+    font-size: 50px;
+    color: rgb(240, 128, 128);
+}
+
+.chat #page-body {
+    font-size: 20px;
+    color: rgb(144, 238, 144);
+}
