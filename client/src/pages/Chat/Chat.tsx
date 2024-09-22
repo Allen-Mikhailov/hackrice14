@@ -91,9 +91,9 @@ function Chat() {
   return (
     <div>
       <div>
-        <h1>Chat</h1>
+        <h1 style={{fontSize:50}}>Chat</h1>
       </div>
-      <div >
+      <div className="chatwindow">
         {messages.map((message, index) => (
           <p key={index}>
             {message.user}: {message.message}
