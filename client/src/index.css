@@ -31,7 +31,6 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  overflow-y: scroll;
 }
 
 #root {
@@ -80,7 +79,4 @@ button:focus-visible {
 
   padding: min(50px, 2vw);
   padding-bottom: 0px;
-  /* height: 100%; */
-  
-  overflow-y: scroll;
 }
