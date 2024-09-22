@@ -67,7 +67,7 @@ function BaseNavbar() {
           backgroundColor:"rgba(0,0,0,0)"
           }} >
       <Container >
-        <Navbar.Brand as={Link} to="">
+        <Navbar.Brand as={Link} to="" style={{ fontWeight: "bold" }}>
           <img src="/motivibes.png" alt="logo" style={{width:40,height:40,marginRight:20}}></img>
           
           Moti-Vibes
