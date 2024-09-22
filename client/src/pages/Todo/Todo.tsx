@@ -43,6 +43,8 @@ function TodoPage()
 
     return <div>
         <h3>Todo</h3>
+        <br></br>
+        <br></br>
         <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label>Due Date</Form.Label>
