@@ -27,7 +27,6 @@ function App()
           <Route path="/" element={<Home/>} />
           <Route path="/userinfo" element={<Userinfo/>} />
           <Route path="/catalog" element={<Catalog/>} />
-          <Route path="/chat" element={<Chat/>} />
           <Route path="/chat/:id" element={<Chat/>} />
           <Route path="/chatSelect" element={<ChatSelect/>} />
         </Routes>
