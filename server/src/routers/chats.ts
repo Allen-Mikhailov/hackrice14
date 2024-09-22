@@ -34,9 +34,9 @@ chats.get("/", async (_req, res: Response<Chat[], { user: UserData }>) => {
 chats.get("/:id", async (req, res: Response<Chat | string, { user: UserData }>) => {
   let chat;
 
-  console.log(req.params.id);
+  console.log(res.locals.user.matches.map(m => m.chat_id), req.params.id);
 
-  if (!res.locals.user.matches.map(m => m.chat_id).includes(req.params.id) || (chat = await collection.findOne<Chat>({ "id": req.params.id })) === null) {
+  if (!res.locals.user.matches.map(m => m.chat_id).includes(new ObjectId(req.params.id)) || (chat = await collection.findOne<Chat>({ "_id": new ObjectId(req.params.id) })) === null) {
     res.status(404).send("Chat not found");
     return;
   }
@@ -45,7 +45,7 @@ chats.get("/:id", async (req, res: Response<Chat | string, { user: UserData }>) 
 });
 
 io.on("connection", (socket) => {
-  socket.on("join", async (id) => {
+  socket.on("join", async (id: string) => {
     const uid = await auth.verifyIdToken(socket.handshake.auth["id_token"] as string).then(async (decodedToken) => {
       return decodedToken.uid;
     }).catch((error) => {
@@ -53,12 +53,12 @@ io.on("connection", (socket) => {
       return null;
     });
 
-    if (!uid || !(await database.collection<UserData>("users").findOne({ "firebase_id": uid }))?.matches.map(m => m.chat_id).includes(id)) {
+    if (!uid || !(await database.collection<UserData>("users").findOne({ "firebase_id": uid }))?.matches.map(m => m.chat_id).includes(new ObjectId(id))) {
       socket.emit("error", "Unauthorized");
       return;
     }
 
-    let chat = await collection.findOne({ "_id": id });
+    let chat = await collection.findOne<Chat>({ "_id": new ObjectId(id) });
 
     if (!chat) {
       socket.emit("error", "Chat not found");

@@ -78,7 +78,6 @@ function Bio(props: {bio: string})
 
 function NotSignedIn()
 {
-
     return <div>
         <h1>Oops!
         </h1>
