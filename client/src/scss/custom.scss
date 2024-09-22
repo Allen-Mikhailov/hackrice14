@@ -43,6 +43,12 @@ body {
     margin: auto;
 }
 
+.cool-text {
+    background-image: linear-gradient(rgb(0, 255, 191), blue);
+    color: transparent;
+    background-clip: text;
+}
+
 .cool-title{
     background-image: linear-gradient(rgb(0, 255, 191), blue);
     color: transparent;
@@ -51,7 +57,7 @@ body {
 }
 
 .footer {
-    // position: fixed;
+    // position: absolute;
     // bottom: 0;
     left: 0;
     right: 0;

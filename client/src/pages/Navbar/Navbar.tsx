@@ -64,7 +64,7 @@ function BaseNavbar() {
     <>
       <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" data-bs-theme="dark" >
       <Container>
-        <Navbar.Brand as={Link} to="">Moti-Vibes</Navbar.Brand>
+        <Navbar.Brand as={Link} to="" className=''>Moti-Vibes</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
