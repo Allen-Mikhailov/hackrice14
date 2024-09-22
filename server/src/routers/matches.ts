@@ -49,18 +49,18 @@ async function makeMatch(user1_id: string, user2_id: string) {
   await users.updateOne({ firebase_id: user2_id }, { "$set": { open_to_wave: false } });
 }
 
-matches.get("/find", async (_req, res: Response<{ found: boolean } | string, { user: UserData }>) => {
+matches.get("/find", async (_req, res: Response<UserData | false, { user: UserData }>) => {
   const user1_id = res.locals.user.firebase_id;
 
   if (!res.locals.user.open_to_wave) {
-    res.status(400).json("Not open to wave");
+    res.status(400).json(false);
     return;
   }
 
   const user2 = await users.findOne<UserData>({ open_to_wave: true, firebase_id: { "$ne": user1_id } });
 
   if (!user2) {
-    res.status(404).json("No match found");
+    res.status(404).json(false);
     return;
   }
 
@@ -69,10 +69,10 @@ matches.get("/find", async (_req, res: Response<{ found: boolean } | string, { u
   await makeMatch(user1_id, user2.firebase_id).then(() => {
     found = true;
   }).catch((e) => {
-    res.status(500).json("Internal Server Error");
+    res.status(500).json(false);
   });
 
-  res.json({ found });
+  res.json(user2);
 });
 
 matches.post("/add", async (req: Request<{}, {}, {user1_id: string, user2_id: string}>, res: Response<{}, { user: UserData }>) => {

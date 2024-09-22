@@ -11,6 +11,7 @@ import Userinfo from './pages/Userinfo/Userinfo'
 import Todo from './pages/Todo/Todo.tsx'
 import Chat from './pages/Chat/Chat'
 import ChatSelect from './pages/ChatSelect/ChatSelect'
+import Match from './pages/Match/Match.ts'
 
 // Import our custom CSS
 import './scss/styles.scss'
@@ -46,6 +47,7 @@ function App()
           <Route path="/todo" element={<Todo/>} />
           <Route path="/chat/:id" element={<Chat/>} />
           <Route path="/matches" element={<ChatSelect/>} />
+          <Route path="/match" element={<Match/>} />
         </Routes>
         
       </div>

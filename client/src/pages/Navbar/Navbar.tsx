@@ -9,7 +9,7 @@ import { Button } from 'react-bootstrap';
 
 import {  } from '../../modules/states';
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth, google_auth, signInWithPopup, signOut } from '../../modules/firebase';
 
 async function SignIn(e: React.MouseEvent)
@@ -51,6 +51,7 @@ function SignedOut()
 
 function BaseNavbar() {
   const [user, setUser] = useState<User|null>(null);
+  const nav = useNavigate();
 
   useEffect(() => {
     
@@ -58,6 +59,10 @@ function BaseNavbar() {
       setUser(user);
     })
   }, [])
+
+  function findMatch() {
+    nav("/match");
+  }
 
   return (
     <>
@@ -79,6 +84,7 @@ function BaseNavbar() {
             <Nav.Link as={Link} to="todo">Todo</Nav.Link>
             <Nav.Link as={Link} to="matches">Matches</Nav.Link>
           </Nav>
+          <Button onClick={findMatch} type="submit">Get Match!</Button>
           {user?<SignedIn/>:<SignedOut/>}
         </Navbar.Collapse>
       </Container>
