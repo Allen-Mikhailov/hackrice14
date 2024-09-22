@@ -9,12 +9,12 @@ function Home()
         <h4>Crowdsourced Academic Encouragement to Combat Procrastination.</h4>
     <br></br>
     Designed 
-    <span style={{color: "green"}}> for college students, </span> 
+    <span style={{color: "#8271ff"}}> for college students, </span> 
     by college students. 
 
     <br></br>
     With a matching algorithm powered by Generative AI, 
-    Moti-Vibes 
+    <span style={{color: "rgb(6, 115, 232)"}}> Moti-Vibes </span> 
     helps you 
     be held accountable for your terrible work ethic.
 

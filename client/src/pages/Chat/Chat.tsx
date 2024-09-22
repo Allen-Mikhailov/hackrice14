@@ -1,32 +1,42 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import "./Chat.css"
 import { Chat as ChatType, Message } from "server/src/routers/chats";
 import { auth } from "../../modules/firebase";
 import { io } from "socket.io-client";
 import { getStartingPoint } from "../../modules/backend_functions";
-import { redirect, useLoaderData } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getChat } from "../../modules/backend_functions";
 
 function Chat()
 {
     const input = useRef<HTMLInputElement>(null);
-    const chat = useLoaderData() as ChatType | null;
+    const [chat, setChat] = useState<ChatType | null>(null);
+    const [messages, setMessages] = useState<Message[]>([]);
+    const id = useParams().id;
+    const nav = useNavigate();
 
-    if (!chat) {
-        redirect("/");
-    }
+    useEffect(() => {
+        (async () => {
+            setChat(await getChat(id));
+            setMessages(chat?.messages || []);
 
-    const [messages, setMessages] = useState<Message[]>(chat?.messages || []);
+            if(!chat) {
+                nav("/");
+                return;
+            }
 
-    const socket = io(`${getStartingPoint()}/chats/socket.io`, {
-        auth: {
-            token: auth.currentUser?.getIdToken()
-        }
-    });
-    socket.connect();
-    socket.on("connect", async () => {
-        socket.emit("join", chat?._id);
-    });
-
+            const socket = io(`${getStartingPoint()}/chats/socket.io`, {
+                auth: {
+                    token: auth.currentUser?.getIdToken()
+                }
+            });
+            socket.connect();
+            socket.on("connect", async () => {
+                socket.emit("join", chat?._id);
+            });
+        })();
+    }, [id, chat?.messages]);
+    
     return <div>
         <div>
             <h1>Chat Page</h1>

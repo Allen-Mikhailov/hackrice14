@@ -39,11 +39,11 @@ async function setProfileBio(user: User, new_bio: string) {
 
 async function getChat(chat_id?: string): Promise<Chat | null>
 {
-    if (!chat_id)
+    if (!chat_id || !auth.currentUser)
         return null
 
     const starting_point = getStartingPoint();
-    const response = await fetch(`${starting_point}/chats/${chat_id}?id_token=${encodeURIComponent(await auth.currentUser!.getIdToken(true))}`)
+    const response = await fetch(`${starting_point}/chats/${chat_id}?id_token=${encodeURIComponent(await auth.currentUser.getIdToken(true))}`)
     if (!response.ok)
         return null
 
