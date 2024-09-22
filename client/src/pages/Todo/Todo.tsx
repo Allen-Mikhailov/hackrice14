@@ -1,6 +1,6 @@
 import "./Todo.css"
 import { user_data_state } from "../../modules/states"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "react-bootstrap";
 
 import Form from 'react-bootstrap/Form';
@@ -18,7 +18,7 @@ function TodoPage()
         if (userData)
         {
             let cloned_todo = [...(userData.todo_list||[])]
-            cloned_todo.sort((a, b) => {
+            cloned_todo = cloned_todo.sort((a, b) => {
                 return a.timestamp-b.timestamp
             })
             setTodoList(cloned_todo)
@@ -38,7 +38,13 @@ function TodoPage()
         
         const new_data: UserData = JSON.parse(JSON.stringify(userData))
         new_data.todo_list.push(new_task)
-        setUserData(new_data)
+        setUserData(new_data);
+    }
+
+    function done(index: number) {
+        const new_data: UserData = JSON.parse(JSON.stringify(userData));
+        new_data.todo_list[index].completed = true;
+        setUserData(new_data);
     }
 
     return <div>
@@ -62,9 +68,11 @@ function TodoPage()
             </Form.Group>
         </Form>
         <Button variant="success" onClick={addTask}>Add Task</Button>
-        {todoList.map(todo => {
-            return <div>
-
+        {todoList.map((todo, index) => {
+            return <div key={index}>
+                {todo.title}
+                {todo.completed ? "Done" : "Not Done"}
+                <Button onClick={() => done(index)}></Button>
             </div>
         })}
     </div>

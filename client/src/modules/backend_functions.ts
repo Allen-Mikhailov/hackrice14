@@ -36,6 +36,24 @@ async function setProfileBio(user: User, new_bio: string) {
     })
 }
 
+async function getTodo(user: User) {
+    const starting_point = getStartingPoint();
+    const url = `${starting_point}/profile/todo?id_token=${encodeURIComponent(await user.getIdToken(true))}`
+    await fetch(url, {
+        method: "GET"
+    })
+}
+
+async function updateTodo(user: User, data: UserData) {
+    const starting_point = getStartingPoint();
+    const url = `${starting_point}/profile/todo?id_token=${encodeURIComponent(await user.getIdToken(true))}`
+    await fetch(url, {
+        method: "POST",
+        headers: {'Content-Type': "application/json"},
+        body: JSON.stringify(data.todo_list)
+    })
+}
+
 async function setProfileSignupStatus(user: User, open: boolean) {
     const starting_point = getStartingPoint();
     const url = `${starting_point}/profile/me?id_token=${encodeURIComponent(await user.getIdToken(true))}`
@@ -73,4 +91,4 @@ async function requestMatch(user: User)
     return res.json();
 }
 
-export { getProfile, setProfileBio, getStartingPoint, getChat, setProfileSignupStatus, requestMatch }
+export { getProfile, setProfileBio, getStartingPoint, getChat, setProfileSignupStatus, requestMatch, getTodo, updateTodo }
