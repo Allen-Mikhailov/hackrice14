@@ -17,13 +17,28 @@ import './scss/styles.scss'
 
 import githublogo from "./assets/githublogo.svg"
 
+function Footer()
+{
+  return <div className='footer'>
+    Created by Allen Mikhailov, Justin Lopato, Kevin Bao, and Clay Goldsmith for HackRice 14.
+    <a href="https://github.com/Allen-Mikhailov/hackrice14">
+      <img src={githublogo} alt="github logo" style={{
+        width:30,
+        height:30,
+        margin:50
+      }}></img>
+    </a> 
+  </div>
+}
+
 function App()
 {
   return <>
     <BrowserRouter>
       <BackEndConnection/>
+      <div style={{display: "flex", flexDirection: "column", minHeight: "100vh"}}>
       <BaseNavbar></BaseNavbar>
-      <div className='page-container'>
+      <div className='page-container' style={{flex: 1}}>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/userinfo" element={<Userinfo/>} />
@@ -31,16 +46,9 @@ function App()
           <Route path="/chat/:id" element={<Chat/>} />
           <Route path="/chatSelect" element={<ChatSelect/>} />
         </Routes>
-        <div className='footer'>
-          Created by Allen Mikhailov, Justin Lopato, Kevin Bao, and Clay Goldsmith for HackRice 14.
-          <a href="https://github.com/Allen-Mikhailov/hackrice14">
-            <img src={githublogo} alt="github logo" style={{
-              width:30,
-              height:30,
-              margin:50
-            }}></img>
-          </a> 
-        </div>
+        
+      </div>
+      <Footer/>
       </div>
     </BrowserRouter>
   </>

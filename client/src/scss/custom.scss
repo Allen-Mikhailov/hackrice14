@@ -15,9 +15,6 @@ h1 {
 }
 
 body {
-    background-color: rgb(21,21,21);
-    background-image: url('https://images.wallpapersden.com/image/download/abstract-shapes-2021-minimalist_bG1lZm6UmZqaraWkpJRnamtlrWZpaWU.jpg');
-    color: rgb(173, 216, 230);
     text-align: center;
 }
 
@@ -44,6 +41,12 @@ body {
     margin: auto;
 }
 
+.cool-text {
+    background-image: linear-gradient(rgb(0, 255, 191), blue);
+    color: transparent;
+    background-clip: text;
+}
+
 .cool-title{
     background-image: linear-gradient(rgb(0, 255, 191), blue);
     color: transparent;
@@ -52,10 +55,21 @@ body {
 }
 
 .footer {
-    position: fixed;
-    bottom: 0;
+    // position: absolute;
+    // bottom: 0;
     left: 0;
     right: 0;
     color: #355565;
     font-size:12px;
+}
+
+.page-container {
+    background-color: rgba(0,0,0,.4);
+    width:75%;
+    margin:auto;
+}
+
+.bg-body-tertiary {
+    background-color: rgba(0,0,0,0);
+    --bs-bg-opacity: 0;
 }

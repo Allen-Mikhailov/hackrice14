@@ -8,7 +8,7 @@ const users = database.collection<UserData>("users");
 export type Match = {
   other_user_id: string,
   chat_id: ObjectId,
-  user_name: string,
+  display_name: string
 }
 
 export type UserData = {
