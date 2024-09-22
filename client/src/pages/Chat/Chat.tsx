@@ -19,8 +19,14 @@ function Chat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const id = useParams().id;
   const send = useRef((message: Message) => { console.log(message.message)})
-
   const nav = useNavigate();
+
+  function recieve_message(message: Message) {
+    if (message.user === auth.currentUser?.displayName) {return;}
+    console.log("raaaa", messages);
+    const new_messages = [...JSON.parse(JSON.stringify(messages)), message]
+    setMessages(new_messages);
+  }
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
@@ -46,12 +52,7 @@ function Chat() {
       socket.on("connect", () => {
         socket.emit("join", chat._id);
       });
-      socket.on("message", function (message: Message) {
-        if (message.user === user.displayName) {return;}
-        console.log("raaaa", messages);
-        const new_messages = [...JSON.parse(JSON.stringify(messages)), message]
-        setMessages(new_messages);
-      });
+      socket.on("message", recieve_message);
       send.current = (message: Message) => {
         socket.emit("message", message);
       }
