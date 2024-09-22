@@ -10,6 +10,9 @@ const collection = database.collection<Chat>("chats");
 const chats = Router();
 const io = new Server({
   path: "/socket.io",
+  cors: {
+    origin: "*"
+  }
 });
 
 export type Message = {
@@ -45,7 +48,7 @@ chats.get("/:id", async (req, res: Response<Chat | string, { user: UserData }>) 
 io.on("connection", (socket) => {
   console.log("connected");
   socket.on("join", async (id: string) => {
-    const uid = await auth.verifyIdToken(socket.handshake.auth["id_token"] as string).then(async (decodedToken) => {
+    const uid = await auth.verifyIdToken(socket.handshake.auth.token as string).then(async (decodedToken) => {
       return decodedToken.uid;
     }).catch((error) => {
       console.error(error);
@@ -69,10 +72,11 @@ io.on("connection", (socket) => {
     socket.data.id = id;
   });
   socket.on("message", (message: Message) => {
-    collection.updateOne({ "_id": socket.data.id }, { "$push": { "messages": message } });
+    console.log("message", message);
+    collection.updateOne({ "_id": new ObjectId(socket.data.id as string) }, { "$push": { "messages": message } });
     io.to(socket.data.id).emit("message", message);
   });
 });
-io.listen(81);
+io.listen(8081);
 
 export default chats;
