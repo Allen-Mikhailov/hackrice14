@@ -1,6 +1,5 @@
 import { User } from "firebase/auth";
 import { UserData } from "server/src/middleware/auth";
-import { auth } from "./firebase";
 import { Chat } from "server/src/routers/chats";
 
 function getStartingPoint()
@@ -37,18 +36,31 @@ async function setProfileBio(user: User, new_bio: string) {
     })
 }
 
-async function getChat(chat_id?: string): Promise<Chat | null>
+async function setProfileSignupStatus(user: User, open: boolean) {
+    const starting_point = getStartingPoint();
+    const url = `${starting_point}/profile/me?id_token=${encodeURIComponent(await user.getIdToken(true))}`
+    await fetch(url, {
+        method: "POST",
+        headers: {'Content-Type': "application/json"},
+        body: JSON.stringify({
+            "open_to_wave": open
+        })
+    })
+}
+
+async function getChat(user: User, chat_id?: string): Promise<Chat | null>
 {
-    if (!chat_id || !auth.currentUser)
+    if (!chat_id || !user)
         return null
 
     const starting_point = getStartingPoint();
-    const response = await fetch(`${starting_point}/chats/${chat_id}?id_token=${encodeURIComponent(await auth.currentUser.getIdToken(true))}`)
+    const response = await fetch(`${starting_point}/chats/${chat_id}?id_token=${encodeURIComponent(await user.getIdToken(true))}`)
     if (!response.ok)
         return null
 
     const json = await (response.json())
+
     return json
 }
 
-export { getProfile, setProfileBio, getStartingPoint, getChat }
+export { getProfile, setProfileBio, getStartingPoint, getChat, setProfileSignupStatus }

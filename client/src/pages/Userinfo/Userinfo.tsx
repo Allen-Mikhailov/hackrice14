@@ -1,16 +1,15 @@
 import { auth } from "../../modules/firebase"
-import { UserData } from "server/src/middleware/auth"
 import { user_data_state } from "../../modules/states"
 import React, { useEffect, useState, useRef } from "react"
 import { User } from "firebase/auth"
 import Button from 'react-bootstrap/Button'
 
 import "./Userinfo.css"
-import { setProfileBio } from "../../modules/backend_functions"
+import { setProfileBio, setProfileSignupStatus } from "../../modules/backend_functions"
 
 function Bio(props: {bio: string})
 {
-    let {bio} = props
+    const {bio} = props
     const [editing, setEditing] = useState(false)
     const [localBio, setLocalBio] = useState("")
     const [userData, setUserData] = user_data_state.useState()
@@ -92,27 +91,36 @@ function MatchingSignup()
 {
     const [userData, setUserData] = user_data_state.useState()
 
+    function set_open_wave_status(status: boolean)
+    {
+        const new_data = JSON.parse(JSON.stringify(userData))
+        new_data.open_to_wave = status
+        setUserData(new_data)
+        if (auth.currentUser)
+            setProfileSignupStatus(auth.currentUser, status)
+    }
+
     function cancel_signup()
     {
-        
+        set_open_wave_status(false)
     }
 
     function request_signup()
     {
-
+        set_open_wave_status(true)
     }
 
     return <div>
         {userData && userData.open_to_wave?<div>
-            <h4>You are signed up for the next wave</h4>
+            <h4>You are signed up for the matching next wave</h4>
             <Button variant="danger" onClick={cancel_signup}>Cancel Signup</Button>
         </div>:<div>
-            <Button variant="success" onClick={request_signup}>Cancel Signup</Button>
+            <Button variant="success" onClick={request_signup}>Signup for matching wave</Button>
         </div>}
     </div>
 }
 
-function InfoWindow()
+function Userinfo()
 {
     const [user, setUser] = useState<User|null>()
     const [userData, setUserData] = user_data_state.useState()
@@ -128,19 +136,10 @@ function InfoWindow()
         <h1 style={{fontSize:40, color:"rgb(173, 182, 255)"}}>{user.displayName || "Error"}</h1>
         <hr></hr>
         {userData?<Bio bio={userData?userData.bio:""} />:"Loading Bio"}
-
+        {userData && <MatchingSignup/>}
         
     </div>:<NotSignedIn/>)
 }
 
-
-function Userinfo()
-{
-    return <div>
-    <>
-      {<InfoWindow></InfoWindow>}
-    </>
-    </div>
-}
 
 export default Userinfo
