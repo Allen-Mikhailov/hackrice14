@@ -4,9 +4,9 @@ function Home()
 {
     return <div>
         <div className="cool-title">
-            Moti-Vibes.
+        <strong>Moti-Vibes.</strong>
             </div>
-        <h4>AI-Driven Academic Social Networking to Combat Procrastination.</h4>
+        <h4> <strong>AI-Driven Academic Social Networking to Combat Procrastination.</strong></h4>
     <br></br>
     <br></br>
     <br></br>
