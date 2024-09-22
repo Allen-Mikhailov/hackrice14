@@ -11,6 +11,7 @@ export type Match = {
 
 export type UserData = {
   firebase_id: string,
+  open_to_wave: boolean,
   matches: Match[],
   bio: string,
   skills: number[],
@@ -36,6 +37,7 @@ export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: strin
   if (!user) {
     user = {
       firebase_id: uid,
+      open_to_wave: true,
       matches: [],
       bio: "",
       skills: []
