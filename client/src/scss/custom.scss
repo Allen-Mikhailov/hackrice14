@@ -62,3 +62,14 @@ body {
     color: #355565;
     font-size:12px;
 }
+
+.page-container {
+    background-color: rgba(0,0,0,.4);
+    width:75%;
+    margin:auto;
+}
+
+.bg-body-tertiary {
+    background-color: rgba(0,0,0,0);
+    --bs-bg-opacity: 0;
+}
