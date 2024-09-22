@@ -12,7 +12,9 @@ function Home()
     <br></br>
     <br></br>
     <br></br>
+    <br></br>
     <hr></hr>
+    <br></br>
     <br></br>
     <br></br>
     <br></br>
