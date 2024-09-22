@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 import { useNavigate, useParams } from "react-router-dom";
 import { getChat } from "../../modules/backend_functions";
 import { auth } from "../../modules/firebase";
+import { User } from "firebase/auth";
 
 function getWS()
 {
@@ -21,8 +22,8 @@ function Chat() {
   const send = useRef((message: Message) => { console.log(message.message)})
   const nav = useNavigate();
 
-  function recieve_message(message: Message) {
-    if (message.user === auth.currentUser?.displayName) {return;}
+  function recieve_message(message: Message, user: User) {
+    if (message.user === user.displayName) {return;}
     console.log("raaaa", messages);
     const new_messages = [...JSON.parse(JSON.stringify(messages)), message]
     setMessages(new_messages);
@@ -52,10 +53,8 @@ function Chat() {
       socket.on("connect", () => {
         socket.emit("join", chat._id);
       });
-      socket.on("message", recieve_message);
-      send.current = (message: Message) => {
-        socket.emit("message", message);
-      }
+      socket.on("message", (message) => recieve_message(message, user));
+      send.current = (message: Message) => socket.emit("message", message);
     });
   }, []);
 
