@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Chat.css";
 import { Message } from "server/src/routers/chats";
 import { io } from "socket.io-client";
@@ -16,8 +16,7 @@ function getWS()
 
 function Chat() {
   const input = useRef<HTMLInputElement>(null);
-  //const [messages, setMessages] = useState<Message[]>([]);
-  const messages = useRef<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const id = useParams().id;
   const send = useRef((message: Message) => { console.log(message.message)})
 
@@ -37,7 +36,7 @@ function Chat() {
         return;
       }
 
-      messages.current = chat.messages;
+      setMessages(chat.messages);
       const token = await user.getIdToken();
 
       const socket = io(getWS(), {
@@ -48,9 +47,10 @@ function Chat() {
         socket.emit("join", chat._id);
       });
       socket.on("message", (message: Message) => {
-        if (message.user == user.displayName) return;
+        if (message.user == user.displayName) {return;}
         console.log(messages);
-        messages.current.push(message);
+        const new_messages = [...JSON.parse(JSON.stringify(messages)), message]
+        setMessages(new_messages);
       });
       send.current = (message: Message) => {
         socket.emit("message", message);
@@ -70,7 +70,10 @@ function Chat() {
       message: input.current.value,
     };
 
-    messages.current.push(message);
+    const new_messages = [...JSON.parse(JSON.stringify(messages)), message]
+    console.log("wdawtf", messages, new_messages)
+
+    setMessages(new_messages);
 
     send.current(message);
     input.current.value = "";
@@ -82,7 +85,7 @@ function Chat() {
         <h1>Chat Page</h1>
       </div>
       <div>
-        {messages.current.map((message, index) => (
+        {messages.map((message, index) => (
           <p key={index}>
             {message.user}: {message.message}
           </p>
