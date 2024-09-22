@@ -4,9 +4,9 @@ function Catalog()
 {
     return <div>
         <div>
-            <h1>Posts Are Displayed Here</h1>
+            <h1>do we need this page?</h1>
         </div>
-        <h4>This is where the people are.</h4>
+        <h4>Not sure if we need to display who you're matched with anywhere</h4>
     </div>
 }
 
