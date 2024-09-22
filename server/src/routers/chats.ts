@@ -2,18 +2,26 @@ import { Router, Response } from "express";
 import { authMiddleware } from "../middleware/auth";
 import { database } from "../mongodb";
 import { UserData } from "../middleware/auth";
+import { Server } from "socket.io";
+import { ObjectId } from "mongodb";
+import { auth } from "../firebase";
 
-const collection = database.collection("chats");
+const collection = database.collection<Chat>("chats");
 const chats = Router();
+const io = new Server({
+  path: "/chats/socket.io",
+});
+
+export type Message = {
+  user: string,
+  message: string,
+  timestamp: number
+};
 
 export type Chat = {
-  id: string,
+  _id: ObjectId,
   users: string[],
-  messages: {
-    user: string,
-    message: string,
-    timestamp: number
-  }[]
+  messages: Message[]
 };
 
 chats.use(authMiddleware);
@@ -25,7 +33,7 @@ chats.get("/", async (_req, res: Response<Chat[], { user: UserData }>) => {
 
 chats.get("/:id", async (req, res: Response<Chat | string, { user: UserData }>) => {
   let chat;
-  
+
   if (!res.locals.user.chats.includes(req.params.id) || (chat = await collection.findOne<Chat>({ "id": req.params.id })) === null) {
     res.status(404).send("Chat not found");
     return;
@@ -34,6 +42,35 @@ chats.get("/:id", async (req, res: Response<Chat | string, { user: UserData }>) 
   res.json(chat);
 });
 
+io.on("connection", (socket) => {
+  socket.on("join", async (id) => {
+    const uid = await auth.verifyIdToken(socket.handshake.query.id_token as string).then(async (decodedToken) => {
+      return decodedToken.uid;
+    }).catch((error) => {
+      console.error(error);
+      return null;
+    });
 
+    if (!uid || !(await database.collection<UserData>("users").findOne({ "firebase_id": uid }))?.chats.includes(id)) {
+      socket.emit("error", "Unauthorized");
+      return;
+    }
+
+    let chat = await collection.findOne({ "_id": id });
+
+    if (!chat) {
+      socket.emit("error", "Chat not found");
+      return;
+    }
+
+    socket.join(id);
+    socket.emit("joined", id);
+    socket.data.id = id;
+  });
+  socket.on("message", (message: Message) => {
+    collection.updateOne({ "_id": socket.data.id }, { "$push": { "messages": message } });
+    io.to(socket.data.id).emit("message", message);
+  });
+});
 
 export default chats;

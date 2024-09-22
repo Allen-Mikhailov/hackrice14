@@ -2,14 +2,11 @@ import express from "express";
 import https from "node:https";
 import fs from "node:fs";
 import cors from "cors";
-import { Server } from "socket.io";
 
 import { config } from "dotenv";
 if (process.env.NODE_ENV !== "production") config();
 
 const app = express();
-
-
 app.use(express.json());
 app.use(cors());
 

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { database } from "../mongodb";
 import { auth } from "../firebase";
 
-const users = database.collection("users");
+const users = database.collection<UserData>("users");
 
 export type UserData = {
   firebase_id: string,
@@ -21,7 +21,6 @@ export const authMiddleware = async (req: Request<{}, {},  {}, { id_token: strin
     console.error(error);
     return null;
   });
-
 
   if (!uid) {
     res.status(401).send("Unauthorized");
