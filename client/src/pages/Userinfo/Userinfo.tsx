@@ -35,7 +35,10 @@ function NotSignedIn()
 {
 
     return <div>
-        You need to sign in
+        <h1>Oops!
+        </h1>
+        <h2>Looks like you're not signed in...</h2>
+        You need to sign in.
     </div>
 }
 
@@ -67,7 +70,6 @@ function InfoWindow()
 function Userinfo()
 {
     return <div>
-    <h1>This is the user info page.</h1>
     <>
       {<InfoWindow></InfoWindow>}
     </>
