@@ -61,10 +61,14 @@ function BaseNavbar() {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" data-bs-theme="dark" style={{backgroundImage:"linear-gradient(to top, rgba(20,21,21,0), rgba(40,40,40,1)", backgroundColor:"rgba(0,0,0,0)"}} >
+      <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" 
+        data-bs-theme="dark" style={{
+          backgroundImage:"linear-gradient(to top, rgba(20,21,21,0), rgba(20,40,100,.3)", 
+          backgroundColor:"rgba(0,0,0,0)"
+          }} >
       <Container >
         <Navbar.Brand as={Link} to="">
-          <img src="motivibes.png" alt="logo" style={{width:40,height:40,marginRight:20}}></img>
+          <img src="/motivibes.png" alt="logo" style={{width:40,height:40,marginRight:20}}></img>
           
           Moti-Vibes
           </Navbar.Brand>
@@ -73,7 +77,7 @@ function BaseNavbar() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="userinfo">User Profile</Nav.Link>
             <Nav.Link as={Link} to="todo">Todo</Nav.Link>
-            <Nav.Link as={Link} to="chatSelect">Chat</Nav.Link>
+            <Nav.Link as={Link} to="chatSelect">Chats</Nav.Link>
           </Nav>
           {user?<SignedIn/>:<SignedOut/>}
         </Navbar.Collapse>
