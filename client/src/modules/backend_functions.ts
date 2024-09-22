@@ -34,4 +34,4 @@ async function setProfileBio(user: User, new_bio: string) {
     })
 }
 
-export { getProfile }
+export { getProfile, setProfileBio }
