@@ -17,6 +17,9 @@
   overflow-y: scroll;
   width: 100%;
   height: 100%;
+
+  background-image: url("/wallpaper.jpg");
+  background-size: cover;
 }
 
 a {
