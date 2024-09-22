@@ -8,7 +8,7 @@ function Home()
         <div className="cool-title">
         <strong>Moti-Vibes:</strong>
             </div>
-        <h4> <strong>Academic Social Networking to Combat Procrastination.</strong></h4>
+        <h4 style={{ color: "white" }}> <strong>Academic Social Networking to Combat Procrastination.</strong></h4>
     <br></br>
     <br></br>
     <br></br>
