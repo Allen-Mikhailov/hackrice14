@@ -1,6 +1,6 @@
-import "./Catalog.css"
+import "./Todo.css"
 
-function Catalog()
+function Todo()
 {
     return <div>
         <div>
@@ -10,4 +10,4 @@ function Catalog()
     </div>
 }
 
-export default Catalog
+export default Todo
