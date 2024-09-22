@@ -6,7 +6,7 @@ import { User } from "firebase/auth"
 import Button from 'react-bootstrap/Button'
 
 import "./Userinfo.css"
-import { setProfileBio } from "../../modules/backend_functions"
+import { setProfileBio, setProfileSignupStatus } from "../../modules/backend_functions"
 
 function Bio(props: {bio: string})
 {
@@ -92,27 +92,36 @@ function MatchingSignup()
 {
     const [userData, setUserData] = user_data_state.useState()
 
+    function set_open_wave_status(status: boolean)
+    {
+        const new_data = JSON.parse(JSON.stringify(userData))
+        new_data.open_to_wave = status
+        setUserData(new_data)
+        if (auth.currentUser)
+            setProfileSignupStatus(auth.currentUser, status)
+    }
+
     function cancel_signup()
     {
-        
+        set_open_wave_status(false)
     }
 
     function request_signup()
     {
-
+        set_open_wave_status(true)
     }
 
     return <div>
         {userData && userData.open_to_wave?<div>
-            <h4>You are signed up for the next wave</h4>
+            <h4>You are signed up for the matching next wave</h4>
             <Button variant="danger" onClick={cancel_signup}>Cancel Signup</Button>
         </div>:<div>
-            <Button variant="success" onClick={request_signup}>Cancel Signup</Button>
+            <Button variant="success" onClick={request_signup}>Signup for matching wave</Button>
         </div>}
     </div>
 }
 
-function InfoWindow()
+function Userinfo()
 {
     const [user, setUser] = useState<User|null>()
     const [userData, setUserData] = user_data_state.useState()
@@ -128,19 +137,10 @@ function InfoWindow()
             <h1>{user.displayName || "Error"}</h1>
         </div>
         {userData?<Bio bio={userData?userData.bio:""} />:"Loading Bio"}
-
+        {userData && <MatchingSignup/>}
         
     </div>:<NotSignedIn/>)
 }
 
-
-function Userinfo()
-{
-    return <div>
-    <>
-      {<InfoWindow></InfoWindow>}
-    </>
-    </div>
-}
 
 export default Userinfo
