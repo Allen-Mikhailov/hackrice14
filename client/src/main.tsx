@@ -1,7 +1,6 @@
-import { StrictMode, useEffect } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { GoogleAuthProvider } from 'firebase/auth/web-extension'
 
 import BaseNavbar from './pages/Navbar/Navbar.tsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -16,6 +15,7 @@ import ChatSelect from './pages/ChatSelect/ChatSelect'
 
 // Import our custom CSS
 import './scss/styles.scss'
+import { getChat } from './modules/backend_functions.ts'
 
 function App()
 {
@@ -29,6 +29,7 @@ function App()
           <Route path="/userinfo" element={<Userinfo/>} />
           <Route path="/catalog" element={<Catalog/>} />
           <Route path="/chat" element={<Chat/>} />
+          <Route path="/chat/:id" loader={({ params }) => getChat(params.id)} element={<Chat/>} />
           <Route path="/chatSelect" element={<ChatSelect/>} />
         </Routes>
       </div>

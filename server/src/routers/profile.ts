@@ -26,7 +26,9 @@ profile.post("/me", async (req: Request<{}, {}, { bio: string }>, res: Response<
 profile.get("/:id", async (req, res: Response<{}, { user: UserData }>) => {
   let user;
   
-  if (!res.locals.user.matches.includes(req.params.id) || (user = await users.findOne<UserData>({ "id": req.params.id })) === null) {
+  if (!res.locals.user.matches.map(m => m.other_user_id).includes(req.params.id) || 
+      (user = await users.findOne<UserData>({ "id": req.params.id })) === null) 
+  {
     res.status(404).send("Chat not found");
     return;
   }
