@@ -4,9 +4,9 @@ function Todo()
 {
     return <div>
         <div>
-            <h1>do we need this page?</h1>
+            <h1>Track your Assignments Here</h1>
         </div>
-        <h4>Not sure if we need to display who you're matched with anywhere</h4>
+        <h4>Insert To-Do list here.</h4>
     </div>
 }
 
