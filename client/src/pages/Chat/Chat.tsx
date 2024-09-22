@@ -9,7 +9,6 @@ import { auth } from "../../modules/firebase";
 
 function Chat() {
   const input = useRef<HTMLInputElement>(null);
-  const [chat, setChat] = useState<ChatType | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const id = useParams().id;
   const send = useRef((message: Message) => { console.log(message.message)})
@@ -23,16 +22,14 @@ function Chat() {
         return;
       }
 
-      const _chat = await getChat(user, id)
+      const chat = await getChat(user, id);
 
-      setChat(_chat);
-
-      if (!_chat) {
+      if (!chat) {
         nav("/");
         return;
       }
 
-      setMessages(_chat.messages || []);
+      setMessages(chat.messages || []);
       const token = await user.getIdToken();
       console.log(token);
 
@@ -41,13 +38,12 @@ function Chat() {
       });
       socket.connect();
       socket.on("connect", () => {
-        socket.emit("join", _chat._id);
+        socket.emit("join", chat._id);
       });
       socket.on("message", (message: Message) => {
         setMessages([...messages, message]);
       });
       send.current = (message: Message) => {
-        console.log(message)
         socket.emit("message", message);
       }
     });
