@@ -1,5 +1,7 @@
 import { User } from "firebase/auth";
 import { UserData } from "server/src/middleware/auth";
+import { auth } from "./firebase";
+import { Chat } from "server/src/routers/chats";
 
 function getStartingPoint()
 {
@@ -26,7 +28,7 @@ async function getProfile(user: User): Promise<UserData | null>
 async function setProfileBio(user: User, new_bio: string) {
     const starting_point = getStartingPoint();
     const url = `${starting_point}/profile/me?id_token=${encodeURIComponent(await user.getIdToken(true))}`
-    const response = await fetch(url, {
+    await fetch(url, {
         method: "post",
         body: JSON.stringify({
             "bio": new_bio
@@ -34,4 +36,18 @@ async function setProfileBio(user: User, new_bio: string) {
     })
 }
 
-export { getProfile, setProfileBio }
+async function getChat(chat_id?: string): Promise<Chat | null>
+{
+    if (!chat_id)
+        return null
+    
+    const starting_point = getStartingPoint();
+    const response = await fetch(`${starting_point}/chats/${chat_id}?id_token=${encodeURIComponent(await auth.currentUser!.getIdToken(true))}`)
+    if (!response.ok)
+        return null
+
+    const json = await (response.json())
+    return json
+}
+
+export { getProfile, setProfileBio, getStartingPoint, getChat }

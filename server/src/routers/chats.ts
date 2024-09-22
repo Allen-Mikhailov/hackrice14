@@ -27,14 +27,14 @@ export type Chat = {
 chats.use(authMiddleware);
 
 chats.get("/", async (_req, res: Response<Chat[], { user: UserData }>) => {
-  let chatsMaybe = await Promise.all(res.locals.user.chats.map(id => collection.findOne<Chat>({ "id": id })));
+  let chatsMaybe = await Promise.all(res.locals.user.matches.map(m => collection.findOne<Chat>({ "id": m.chat_id })));
   res.json(chatsMaybe.filter((chat) => chat !== null));
 });
 
 chats.get("/:id", async (req, res: Response<Chat | string, { user: UserData }>) => {
   let chat;
 
-  if (!res.locals.user.chats.includes(req.params.id) || (chat = await collection.findOne<Chat>({ "id": req.params.id })) === null) {
+  if (!res.locals.user.matches.map(m => m.chat_id).includes(req.params.id) || (chat = await collection.findOne<Chat>({ "id": req.params.id })) === null) {
     res.status(404).send("Chat not found");
     return;
   }
@@ -44,14 +44,14 @@ chats.get("/:id", async (req, res: Response<Chat | string, { user: UserData }>) 
 
 io.on("connection", (socket) => {
   socket.on("join", async (id) => {
-    const uid = await auth.verifyIdToken(socket.handshake.query.id_token as string).then(async (decodedToken) => {
+    const uid = await auth.verifyIdToken(socket.handshake.auth["id_token"] as string).then(async (decodedToken) => {
       return decodedToken.uid;
     }).catch((error) => {
       console.error(error);
       return null;
     });
 
-    if (!uid || !(await database.collection<UserData>("users").findOne({ "firebase_id": uid }))?.chats.includes(id)) {
+    if (!uid || !(await database.collection<UserData>("users").findOne({ "firebase_id": uid }))?.matches.map(m => m.chat_id).includes(id)) {
       socket.emit("error", "Unauthorized");
       return;
     }
