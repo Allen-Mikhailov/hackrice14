@@ -20,6 +20,7 @@
 
   background-color: rgb(21, 21, 21);
   background-size: cover;
+  
 }
 
 a {
@@ -35,7 +36,9 @@ body {
   margin: 0;
   display: flex;
   overflow-y: scroll;
-  background-image:'./assets/wallpaper.jpg'
+  background-image:'./assets/wallpaper.jpg';
+  color: rgb(255,255,255)
+  
 }
 
 #root {
@@ -45,6 +48,7 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+
 }
 
 button {
