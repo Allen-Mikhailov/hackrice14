@@ -1,10 +1,14 @@
 import { Router, Response, Request } from "express";
 import { authMiddleware, UserData } from "../middleware/auth";
 import { database } from "../mongodb";
-// import { HfInference } from "@huggingface/inference";
+import { OpenAI } from "openai";
 
 const users = database.collection("users");
 const profile = Router();
+
+const openai = new OpenAI({
+  apiKey: process.env.CHATGPT
+});
 
 profile.use(authMiddleware);
 
@@ -16,15 +20,31 @@ profile.post("/me", async (req: Request<{}, {}, Partial<{ bio: string, open_to_w
   let { bio, open_to_wave } = req.body;
   const user = res.locals.user;
 
-  // const inference = new HfInference("hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+  console.log(bio, open_to_wave);
 
-  // for await (const chunk of inference.chatCompletionStream({
-  //   model: "meta-llama/Meta-Llama-3.1-70B-Instruct",
-  //   messages: [{ role: "user", content: "What is the capital of France?" }],
-  //   max_tokens: 500,
-  // })) {
-  //   process.stdout.write(chunk.choices[0]?.delta?.content || "");
-  // }
+  if (bio) {
+    const res = await openai.chat.completions.create({
+      messages: [{ role: "user", content: `Rate how extroverted this person is 1 to 10 with 1 being introverted and 10 being extroverted. State your answer wrapped with brackets. Ex: [9]
+
+  Rate how logical/emotional this person is 1 to 10 with 1 being logical and 10 being emotional . State your answer wrapped with brackets. Ex: [9]
+
+  Rate how reserved/impulsive this person is 1 to 10 with 1 being reserved and 10 being impulsive . State your answer wrapped with brackets. Ex: [9]
+
+  Rate how sensing/intuition this person is 1 to 10 with 1 being sensing and 10 being intuition. State your answer wrapped with brackets. Ex: [9]
+
+  Rate how Judging/Perceiving this person is 1 to 10 with 1 being Judging and 10 being Perceiving. State your answer wrapped with brackets. Ex: [9]` }, { role: "user", content: bio }],
+      model: "gpt-3.5-turbo",
+    });
+
+    if (!res.choices[0].message.content) {
+      return;
+    }
+
+    const traits = res.choices[0].message.content!.split("\n").map((line: string) => parseInt(line.match(/\[(\d+)\]/)![1]));
+
+    await users.updateOne({ firebase_id: user.firebase_id }, { "$set": { traits } });
+  }
+  
 
   await users.updateOne({ firebase_id: user.firebase_id }, { "$set": { bio: (bio || user.bio), open_to_wave: (open_to_wave !== null ? open_to_wave : user.open_to_wave) } });
   res.json({ ...user, bio, open_to_wave });
