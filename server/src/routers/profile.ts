@@ -11,17 +11,17 @@ profile.get("/me", (_req, res: Response<{}, { user: UserData }>) => {
   res.json(res.locals.user);
 });
 
-profile.post("/me", async (req: Request<{}, {}, { bio: string }>, res: Response<{}, { user: UserData }>) => {
-  let { bio } = req.body;
+profile.post("/me", async (req: Request<{}, {}, { bio: string, open_to_wave: boolean }>, res: Response<{}, { user: UserData }>) => {
+  let { bio, open_to_wave } = req.body;
 
   console.log(req);
 
-  if (bio === undefined) {
+  if (bio === undefined || open_to_wave === undefined) {
     res.status(400).send("Missing bio");
     return;
   }
 
-  await users.updateOne({ firebase_id: res.locals.user.firebase_id }, { "$set": { bio } });
+  await users.updateOne({ firebase_id: res.locals.user.firebase_id }, { "$set": { bio, open_to_wave } });
   res.json({ ...res.locals.user, bio });
 });
 
