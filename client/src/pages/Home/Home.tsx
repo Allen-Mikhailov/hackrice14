@@ -15,12 +15,12 @@ function Home()
     <br></br>
     <br></br>
     Designed 
-    <span style={{color: "#8271ff"}}> for college students, by college students.  </span> 
+    <span style={{color: "#8271ff"}}> <strong>for college students, by college students.</strong>  </span> 
     
 
     <br></br>
     With a matching algorithm powered by 
-    <span style={{color:"#FCE7A2"}}> Generative AI, </span> 
+    <span style={{color:"#FCE7A2"}}> <strong>Generative AI,</strong> </span> 
     Moti-Vibes helps you 
     be held accountable for your terrible work ethic.
 
