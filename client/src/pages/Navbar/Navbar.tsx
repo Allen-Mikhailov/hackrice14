@@ -42,19 +42,14 @@ function SignedIn()
     })
   }, [])
 
-  return (user && <>
-  <Navbar.Text>{"Hello, "+user.displayName}</Navbar.Text>
-  <div style={{width: "25px"}}></div>
-    <Form>
-      <Row>
-        <Col xs="auto">
-          
-          <Button onClick={SignOut} type="submit">Login Out</Button>
-        </Col>
-        {/* <div style={{width: "50px"}}></div> */}
-      </Row>
-    </Form>
-  </>)
+  //<div style={{display: "flex", justifyContent: "center"}}>
+
+  return (user && <Nav className="me-auto" style={{display: "flex", justifyContent: "center", 
+  flexDirection: "row", alignItems: "flex-end", alignSelf: "flex-end"}}>
+    <Navbar.Text>{"Hello, "+user.displayName}</Navbar.Text>
+    <span style={{marginLeft: "25px"}}></span>
+    <Button onClick={SignOut} type="submit">Login Out</Button>
+    </Nav>)
 }
 
 function SignedOut()
@@ -74,17 +69,6 @@ function BaseNavbar() {
 
   return (
     <>
-      {/* <Navbar bg="dark" data-bs-theme="dark">
-          <div style={{width: "50px"}}></div>
-          <Navbar.Brand href="/">Moti-Vibes</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to="userinfo">User Profile</Nav.Link>
-            <Nav.Link as={Link} to="catalog">Find Unmotivated</Nav.Link>
-            <Nav.Link as={Link} to="chat">Test chat(will eventually be in chatselect)</Nav.Link>
-            <Nav.Link as={Link} to="chatSelect">Chat</Nav.Link>
-          </Nav>
-          {user?<SignedIn/>:<SignedOut/>}
-      </Navbar> */}
       <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
       <Container>
         <Navbar.Brand href="#home">Moti-Vibes</Navbar.Brand>
@@ -92,8 +76,8 @@ function BaseNavbar() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} to="userinfo">User Profile</Nav.Link>
-            <Nav.Link as={Link} to="catalog">Find Unmotivated</Nav.Link>
-            <Nav.Link as={Link} to="chat">Test chat(will eventually be in chatselect)</Nav.Link>
+            <Nav.Link as={Link} to="catalog">Find</Nav.Link>
+            <Nav.Link as={Link} to="chat">Test chat</Nav.Link>
             <Nav.Link as={Link} to="chatSelect">Chat</Nav.Link>
           </Nav>
           {user?<SignedIn/>:<SignedOut/>}
