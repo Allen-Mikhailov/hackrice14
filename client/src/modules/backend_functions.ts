@@ -30,6 +30,7 @@ async function setProfileBio(user: User, new_bio: string) {
     const url = `${starting_point}/profile/me?id_token=${encodeURIComponent(await user.getIdToken(true))}`
     await fetch(url, {
         method: "POST",
+        headers: {'Content-Type': "application/json"},
         body: JSON.stringify({
             "bio": new_bio
         })
