@@ -36,6 +36,18 @@ async function setProfileBio(user: User, new_bio: string) {
     })
 }
 
+async function setProfileSignupStatus(user: User, open: boolean) {
+    const starting_point = getStartingPoint();
+    const url = `${starting_point}/profile/me?id_token=${encodeURIComponent(await user.getIdToken(true))}`
+    await fetch(url, {
+        method: "POST",
+        headers: {'Content-Type': "application/json"},
+        body: JSON.stringify({
+            "open_to_wave": open
+        })
+    })
+}
+
 async function getChat(user: User, chat_id?: string): Promise<Chat | null>
 {
     if (!chat_id || !user)
@@ -51,4 +63,4 @@ async function getChat(user: User, chat_id?: string): Promise<Chat | null>
     return json
 }
 
-export { getProfile, setProfileBio, getStartingPoint, getChat }
+export { getProfile, setProfileBio, getStartingPoint, getChat, setProfileSignupStatus }

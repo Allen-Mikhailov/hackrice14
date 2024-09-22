@@ -12,7 +12,7 @@ function ListChats()
     return <div>
     
         <ListGroup>
-            <ListGroup.Item>{<Username></Username>}</ListGroup.Item>
+            <ListGroup.Item><a href="/">{<Username></Username>}</a></ListGroup.Item>
         </ListGroup>
 
 </div>
@@ -24,7 +24,7 @@ function ChatSelect()
     return <div>
     <h1>Active Chats:</h1>
     <p>
-      {<ListChats></ListChats>}
+        {<ListChats></ListChats>}
     </p>
     </div>
 }
