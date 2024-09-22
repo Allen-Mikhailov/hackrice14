@@ -40,13 +40,37 @@ function Chat() {
         socket.emit("join", chat._id);
       });
       socket.on("message", (message: Message) => {
-        setMessages([...messages, message]);
+        if (message.user == user.displayName) {return;}
+        const new_messages = [...JSON.parse(JSON.stringify(messages)), message]
+        console.log("wdawtf", messages, new_messages)
+        setMessages(new_messages);
       });
       send.current = (message: Message) => {
         socket.emit("message", message);
       }
     });
   }, []);
+
+  function send_message(e: React.MouseEvent)
+  {
+    e.preventDefault();
+
+    if (input.current === null || !auth.currentUser?.displayName) return;
+
+    const message = {
+      timestamp: Math.floor(Date.now() / 1000),
+      user: auth.currentUser?.displayName,
+      message: input.current.value,
+    };
+
+    const new_messages = [...JSON.parse(JSON.stringify(messages)), message]
+    console.log("wdawtf", messages, new_messages)
+
+    setMessages(new_messages);
+
+    send.current(message);
+    input.current.value = "";
+  }
 
   return (
     <div>
@@ -62,25 +86,7 @@ function Chat() {
       </div>
       <input ref={input} />
       <button
-        onClick={(e: React.MouseEvent) => {
-          e.preventDefault();
-
-          if (input.current === null || !auth.currentUser?.displayName) return;
-
-          const message = {
-            timestamp: Math.floor(Date.now() / 1000),
-            user: auth.currentUser?.displayName,
-            message: input.current.value,
-          };
-
-          setMessages([
-            ...messages,
-            message
-          ]);
-
-          send.current(message);
-          input.current.value = "";
-        }}
+        onClick={send_message}
       >send</button>
     </div>
   );
