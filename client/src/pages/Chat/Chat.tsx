@@ -4,12 +4,17 @@ import { Chat as ChatType, Message } from "server/src/routers/chats";
 import { auth } from "../../modules/firebase";
 import { io } from "socket.io-client";
 import { getStartingPoint } from "../../modules/backend_functions";
-import { useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData } from "react-router-dom";
 
 function Chat()
 {
     const input = useRef<HTMLInputElement>(null);
     const chat = useLoaderData() as ChatType | null;
+
+    if (!chat) {
+        redirect("/");
+    }
+
     const [messages, setMessages] = useState<Message[]>(chat?.messages || []);
 
     const socket = io(`${getStartingPoint()}/chats/socket.io`, {
@@ -19,9 +24,8 @@ function Chat()
     });
     socket.connect();
     socket.on("connect", async () => {
-        socket.emit("join", );
+        socket.emit("join", chat?._id);
     });
-    socket
 
     return <div>
         <div>
