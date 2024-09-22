@@ -1,0 +1,4 @@
+.biotextarea {
+    width: min(75vh, calc(90vw - 50px));
+    height: 50vh;
+}

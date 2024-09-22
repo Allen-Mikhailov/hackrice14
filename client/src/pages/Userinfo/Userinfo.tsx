@@ -7,6 +7,8 @@ import Button from 'react-bootstrap/Button'
 import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form'
 
+import "./Userinfo.css"
+
 function Username(props: {username: string})
 {
     let {username} = props
@@ -22,11 +24,32 @@ function Bio(props: {bio: string})
 
     const textboxRef = useRef(null);
 
+    function save_bio()
+    {
+        setEditing(false)
+    }
+
+    function cancel_edit()
+    {
+        setEditing(false)
+    }
+
+    function start_edit()
+    {
+        setEditing(true)
+    }
+
     return <div>
-        {editing?<textarea ref={textboxRef}>
+        <h3>Biography</h3>
+        <textarea ref={textboxRef} className="biotextarea">
             
-        </textarea>:<div>
-            {bio}
+        </textarea>
+        <br/>
+        {editing?<div>
+            <Button variant="primary" onClick={save_bio}>Save Bio</Button>
+            <Button variant="danger" onClick={cancel_edit}>Cancel</Button>
+        </div>:<div>
+            <Button variant="primary" onClick={start_edit}>Edit Bio</Button>
         </div>}
         
     </div>
@@ -43,9 +66,6 @@ function NotSignedIn()
     </div>
 }
 
-function EditBio() {
-
-}
 function InfoWindow()
 {
     const [user, setUser] = useState<User|null>()
@@ -58,15 +78,10 @@ function InfoWindow()
     }, [])
 
     return (user!=null?<div>
-            <div>
-                <div className="table">
-                    <h1><Username username={user.displayName || "Error"}/></h1>
-                </div>
-                <div className="table">
-                    <h4><Bio bio={userData?userData.bio:"Loading Bio"} /></h4>
-                </div>
-                <Button variant="primary" onClick={EditBio}>Edit Bio</Button>{' '}
-            </div>    
+        <div className="table">
+            <h1>{user.displayName || "Error"}</h1>
+        </div>
+        {userData?<Bio bio={userData?userData.bio:""} />:"Loading Bio"}
 
         
     </div>:<NotSignedIn/>)

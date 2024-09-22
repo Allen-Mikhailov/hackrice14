@@ -39,7 +39,7 @@ function SignedIn()
 
   return (user && <Nav className="me-l" style={{display: "flex", justifyContent: "center", 
   flexDirection: "row", alignItems: "flex-end", alignSelf: "flex-end"}}>
-    <Navbar.Text>{"Hello, "+user.displayName}</Navbar.Text>
+    <Nav.Link as={Link} to="userinfo">{"Hello, "+user.displayName}</Nav.Link>
     <span style={{marginLeft: "25px"}}></span>
     <Button onClick={SignOut} type="submit">Login Out</Button>
     </Nav>)
