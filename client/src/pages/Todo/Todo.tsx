@@ -6,7 +6,7 @@ function Todo()
     const [userData, setUserData] = user_data_state.useState()
 
     return <div>
-        <h3>Todo</h3>
+        <h2>To-do:</h2>
         {/* {userData && userData.todo_list.map()} */}
     </div>
 }

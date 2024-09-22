@@ -61,7 +61,7 @@ function Bio(props: {bio: string})
     }
 
     return <div>
-        <h3>Biography</h3>
+        
         <textarea ref={textboxRef} className="biotextarea" disabled={!editing} value={localBio} onChange={textbox_change}>
             
         </textarea>
