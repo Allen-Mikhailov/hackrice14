@@ -34,7 +34,7 @@ const matches = Router();
 
 matches.use(authMiddleware);
 
-async function makeMatch(user1_id: string, user2_id: string) {
+export async function makeMatch(user1_id: string, user2_id: string) {
   const user1 = await users.findOne<UserData>({ firebase_id: user1_id });
   const user2 = await users.findOne<UserData>({ firebase_id: user2_id });
 
