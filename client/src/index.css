@@ -37,7 +37,8 @@ body {
   display: flex;
   /* overflow-y: scroll; */
   background-image: url('./assets/5dots.webp');
-  color: rgb(255,255,255)
+  color: rgb(255,255,255);
+  font-family:Roboto;
   
 }
 
