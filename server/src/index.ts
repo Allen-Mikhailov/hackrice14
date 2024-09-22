@@ -13,6 +13,7 @@ app.use(cors());
 app.use("/profile", (await import("./routers/profile")).default);
 app.use("/todo", (await import("./routers/todo")).default);
 app.use("/chats", (await import("./routers/chats")).default);
+app.use("/matches", (await import("./routers/matches")).default);
 
 app.get("/", (req, res) => {
   res.send("test");
