@@ -10,6 +10,7 @@ function Home()
     <br></br>
     <hr></hr>
     <br></br>
+    <div style={{ marginTop: "20px" }}></div>
     Designed 
     <span style={{color: "#8271ff"}}> for college students, by college students.  </span> 
     
